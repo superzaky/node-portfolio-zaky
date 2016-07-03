@@ -6,26 +6,8 @@ var projects = require('./routes/projects');
 var app = express();
 var mongoose = require('mongoose');
 var config = require('./config/config');
-var dbPath = "";
 
-switch (app.settings.env)
-{
-    case 'development':
-        dbPath = config.development.path;
-        break;
-
-    case 'test':
-        dbPath = config.test.path;
-        break;
-
-    case 'staging':
-        break;
-
-    case 'production':
-        break;
-}
-
-mongoose.connect(dbPath);
+mongoose.connect(config.getDbPath(app.settings.env));
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {

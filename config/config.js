@@ -1,19 +1,35 @@
-var config = {};
-// Database (MongoDB) configurations
-config.development = {
-    path: 'mongodb://localhost/portfolio-zaky'
-};
+var config = {
+    // Database (MongoDB) configurations
+    development: {
+        path: 'mongodb://localhost/portfolio-zaky'
+    },
+    test: {
+        path: 'mongodb://localhost/portfolio-zaky-test'
+    },
+    staging: {
+        path: 'some-uri'
+    },
+    production: {
+        path: 'some-uri'
+    },
+    getDbPath: function (environment) {
+        switch (environment)
+        {
+            case 'development':
+                return config.development.path;
+                break;
 
-config.test = {
-    path: 'mongodb://localhost/portfolio-zaky-test'
-};
+            case 'test':
+                return config.test.path;
+                break;
 
-config.staging = {
-    path: 'some-uri'
-};
+            case 'staging':
+                break;
 
-config.production = {
-    path: 'some-uri'
+            case 'production':
+                break;
+        }
+    }
 };
 
 module.exports = config;
