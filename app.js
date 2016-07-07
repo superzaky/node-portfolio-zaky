@@ -7,7 +7,17 @@ var app = express();
 var mongoose = require('mongoose');
 var config = require('./config/config');
 
-mongoose.connect(config.getDbPath(app.settings.env));
+if (app.settings.env === "test") {
+    mongoose.connect(config.getDbPath(app.settings.env), function () {
+        /* Drop the DB */
+        mongoose.connection.db.dropDatabase();
+    });
+}
+
+if (app.settings.env === "development") {
+    mongoose.connect(config.getDbPath(app.settings.env));
+}
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -31,7 +41,11 @@ app.use('/api/v1/', projects);
 
 // TODO: catch 404 and forward to error handler
 
-var server = app.listen(3000, function () {
+var port = 3000;
+
+if(process.env.NODE_ENV === "test") port = 3002;
+
+var server = app.listen(port, function () {
     var host = 'localhost';
     var port = server.address().port;
     console.log('App listening at http://%s:%s', host, port);

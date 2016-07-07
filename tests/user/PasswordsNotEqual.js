@@ -1,8 +1,11 @@
+require('../bootstrap');
+
 var supertest = require("supertest");
 var should = require("should");
 var assert = require('chai').assert;
+var app = require('../../app');
 // This agent refers to PORT where our program is running.
-var server = supertest.agent("http://localhost:3000");
+var server = supertest.agent(app);
 
 // UNIT test begin
 describe("A user registers with different passwords", function () {
@@ -17,12 +20,9 @@ describe("A user registers with different passwords", function () {
                     confirm_password: "openq"
                 })
                 .expect("Content-type", /json/)
-                .expect(200)
+                .expect(400)
                 .end(function (err, res) {
-                    //TO DO: compare created_at and updated_at
-                    var data = {
-                        message: "Passwords must be equal"
-                    };
+                    var data = "Both passwords aren't equal.";
                     res.status.should.equal(400);
                     assert.deepEqual(res.body, data);
                     done();
