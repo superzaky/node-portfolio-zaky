@@ -25,9 +25,10 @@ router.post('/', function (req, res) {
     });
 
     var data = {
-        name: req.body.name,
-        username: req.body.username,
-        admin: false
+        _id: newUser._id,
+        name: newUser.name,
+        username: newUser.username,
+        admin: newUser.admin
     };
 
     res.status(200).json(data);
