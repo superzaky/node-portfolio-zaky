@@ -1,4 +1,4 @@
-require('../bootstrap');
+require('../utils');
 
 var supertest = require("supertest");
 var should = require("should");

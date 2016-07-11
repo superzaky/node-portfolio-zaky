@@ -7,13 +7,6 @@ var app = express();
 var mongoose = require('mongoose');
 var config = require('./config/config');
 
-if (app.settings.env === "test") {
-    mongoose.connect(config.getDbPath(app.settings.env), function () {
-        /* Drop the DB */
-        mongoose.connection.db.dropDatabase();
-    });
-}
-
 if (app.settings.env === "development") {
     mongoose.connect(config.getDbPath(app.settings.env));
 }
