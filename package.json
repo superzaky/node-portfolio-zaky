@@ -1,26 +1,29 @@
 {
-  "name": "node-portfolio-zaky",
-  "version": "1.0.0",
-  "keywords": [
-    "util",
-    "functional",
-    "server",
-    "client",
-    "browser"
-  ],
-  "author": "yomac_000",
-  "contributors": [],
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "mongoose": "^4.5.2",
-    "node-mongoose-fixtures": "^0.2.4",
-    "sha1": "^1.1.1"
-  },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^2.5.3",
-    "should": "^9.0.2",
-    "supertest": "^1.2.0"
-  }
+    "name": "node-portfolio-zaky",
+    "version": "1.0.0",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "yomac_000",
+    "contributors": [],
+    "dependencies": {
+        "body-parser": "^1.15.2",
+        "express": "^4.14.0",
+        "mongoose": "^4.5.2",
+        "node-mongoose-fixtures": "^0.2.4",
+        "sha1": "^1.1.1"
+    },
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "mocha": "^2.5.3",
+        "should": "^9.0.2",
+        "supertest": "^1.2.0"
+    },
+    "scripts": {
+        "test": "node_modules/.bin/mocha tests --recursive"
+    }
 }
