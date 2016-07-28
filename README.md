@@ -1,5 +1,5 @@
 ##node-portfolio-zaky 
-![enter image description here](https://travis-ci.org/superzaky/node-portfolio-zaky.svg?branch=master)
+[![Build Status](https://travis-ci.org/superzaky/node-portfolio-zaky.svg?branch=master)](https://travis-ci.org/superzaky/node-portfolio-zaky)
 
 node-portfolio-zaky is an Node.js webapp which uses the MEAN stack.
 

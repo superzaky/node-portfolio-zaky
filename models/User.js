@@ -38,7 +38,7 @@ userSchema.pre('save', function (next) {
  * @returns {Boolean}
  */
 userSchema.methods.validateInput = function (body) {
-
+   
     if (body.name === "" || body.hasOwnProperty('name') === false) throw "A name is required.";
     
     if (body.username === "" || body.hasOwnProperty('username') === false) throw "A username is required.";
@@ -46,7 +46,7 @@ userSchema.methods.validateInput = function (body) {
     if (body.password === "" || body.hasOwnProperty('password') === false) throw "A password is required.";
     
     if (body.password !== body.confirm_password) throw "Both passwords aren't equal.";
-    
+
     return true;
 }
 

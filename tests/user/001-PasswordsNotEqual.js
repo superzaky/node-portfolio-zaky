@@ -8,20 +8,21 @@ var app = require('../../app');
 var server = supertest.agent(app);
 
 // UNIT test begin
-describe("A user registers without a name", function () {
+describe("A user registers with different passwords", function () {
     it("shouldn't create a SINGLE user on /api/register POST", function (done) {
         //calling REGISTER api
         server
-                .post('/api/register')
+                .post('/api/auth/register')
                 .send({
+                    name: "John Doe",
                     username: "john",
                     password: "open",
-                    confirm_password: "open"
+                    confirm_password: "openq"
                 })
                 .expect("Content-type", /json/)
                 .expect(400)
                 .end(function (err, res) {
-                    var data = "A name is required.";
+                    var data = "Both passwords aren't equal.";
                     res.status.should.equal(400);
                     assert.deepEqual(res.body, data);
                     done();

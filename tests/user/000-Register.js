@@ -14,7 +14,7 @@ describe("A user registers", function () {
     it('should create a SINGLE user on /api/register POST', function (done) {
         //calling REGISTER api
         server
-                .post('/api/register')
+                .post('/api/auth/register')
                 .send({
                     name: "John Doe",
                     username: "john",

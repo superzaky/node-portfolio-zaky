@@ -6,6 +6,7 @@ var projects = require('./routes/projects');
 var app = express();
 var mongoose = require('mongoose');
 var config = require('./config/config');
+var session = require('express-session');
 
 if (app.settings.env === "development") {
     mongoose.connect(config.getDbPath(app.settings.env));
@@ -20,6 +21,12 @@ db.once('open', function () {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -29,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // we are mapping the routes to end points.
 app.use('/', index);
-app.use('/api/register', require('./controllers/RegisterController'));
+app.use('/api/auth', require('./controllers/AuthController'));
 app.use('/api/v1/', projects);
 
 // TODO: catch 404 and forward to error handler
