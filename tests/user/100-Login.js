@@ -51,4 +51,32 @@ describe("A user logs in", function () {
                     done();
                 });
     });
+    
+    it('should delete a SINGLE session on /api/auth/logout GET', function (done) {
+        //We check if a session is created by sending a GET request to /api/auth
+        server
+                .get('/api/auth/logout')
+                .expect("Content-type", /json/)
+                .expect(200)
+                .end(function (err, res) {   
+                    var data = "Successfully logged out";
+                    res.status.should.equal(200);
+                    assert.deepEqual(res.body, data);
+                    done();
+                });
+    });
+    
+    it('should NOT display a SINGLE session on /api/auth/ GET', function (done) {
+        //We check if a session is created by sending a GET request to /api/auth
+        server
+                .get('/api/auth/')
+                .expect("Content-type", /json/)
+                .expect(404)
+                .end(function (err, res) {
+                    var data = "Session not found";
+                    res.status.should.equal(404);
+                    assert.deepEqual(res.body, data);
+                    done();
+                });
+    });
 });

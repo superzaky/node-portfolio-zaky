@@ -31,6 +31,20 @@ userSchema.pre('save', function (next) {
     next();
 });
 
+function userExists(username, cb) {
+    User.find({username: username}, function (err, docs) {
+        if (docs.length) {
+            try {
+                cb(true, docs);
+            } catch (err) {
+
+            }
+        }
+    });
+
+    cb(false, "User doesn't exists yet");
+}
+
 /**
  * Validates the input of the user
  * 
@@ -38,14 +52,28 @@ userSchema.pre('save', function (next) {
  * @returns {Boolean}
  */
 userSchema.methods.validateInput = function (body) {
-   
-    if (body.name === "" || body.hasOwnProperty('name') === false) throw "A name is required.";
-    
     if (body.username === "" || body.hasOwnProperty('username') === false) throw "A username is required.";
+    
+    if (body.name === "" || body.hasOwnProperty('name') === false) throw "A name is required.";
     
     if (body.password === "" || body.hasOwnProperty('password') === false) throw "A password is required.";
     
     if (body.password !== body.confirm_password) throw "Both passwords aren't equal.";
+
+    var exists;
+    exists = false;
+
+    try {
+        userExists(body.username, function (err, user) {
+            if (err) {
+                exists = true;
+                throw "You already have registered";
+            } else {
+                return true;
+            }
+
+        });
+    } catch (err) { }
 
     return true;
 }
