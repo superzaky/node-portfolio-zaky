@@ -31,20 +31,6 @@ userSchema.pre('save', function (next) {
     next();
 });
 
-function userExists(username, cb) {
-    User.find({username: username}, function (err, docs) {
-        if (docs.length) {
-            try {
-                cb(true, docs);
-            } catch (err) {
-
-            }
-        }
-    });
-
-    cb(false, "User doesn't exists yet");
-}
-
 /**
  * Validates the input of the user
  * 
@@ -59,21 +45,6 @@ userSchema.methods.validateInput = function (body) {
     if (body.password === "" || body.hasOwnProperty('password') === false) throw "A password is required.";
     
     if (body.password !== body.confirm_password) throw "Both passwords aren't equal.";
-
-    var exists;
-    exists = false;
-
-    try {
-        userExists(body.username, function (err, user) {
-            if (err) {
-                exists = true;
-                throw "You already have registered";
-            } else {
-                return true;
-            }
-
-        });
-    } catch (err) { }
 
     return true;
 }

@@ -11,14 +11,9 @@ router.get('/', function (req, res) {
 });
 
 router.post('/register', function (req, res) {
-    var userExists;
-    userExists = false;
     User.findOne({username: req.body.username}, function (err, user) {
         if (user !== null) {
-            if (user._id !== "" || user._id) {
-                userExists = true;
-                res.status(400).json("You already have registered");
-            }
+            res.status(400).json("You already have registered"); 
         }
     });
 
@@ -31,28 +26,24 @@ router.post('/register', function (req, res) {
         admin: false
     });
     
-    var errorMsg;
-    errorMsg = "";
     try {
         newUser.validateInput(req.body);
     } catch (err) {
-        errorMsg = err;
         res.status(400).json(err);
     }
-    if (errorMsg === "" &&  userExists === false) {
-        newUser.save(function (err, newUser) {
-            if (err){} 
-            else {
-                var data = {
-                    _id: newUser._id,
-                    name: newUser.name,
-                    username: newUser.username,
-                    admin: newUser.admin
-                };
-                res.status(200).json(data);
-            }
-        });    
-    }
+  
+    newUser.save(function (err, newUser) {
+        if (err){} 
+        else {
+            var data = {
+                _id: newUser._id,
+                name: newUser.name,
+                username: newUser.username,
+                admin: newUser.admin
+            };
+            res.status(200).json(data);
+        }
+    });    
 });
 
 router.post('/login', function (req, res) {
