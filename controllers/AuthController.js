@@ -5,15 +5,19 @@ var User = require('../models/User');
 var sha1 = require('sha1');
 
 router.get('/', function (req, res) {
-    if (!req.session.user || req.session.user === undefined) res.status(404).json('Session not found');
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    }
 
     res.status(200).json(req.session.user);
 });
 
-router.post('/register', function (req, res) {
+router.post('/register', function (req, res) {            
     User.findOne({username: req.body.username}, function (err, user) {
         if (user !== null) {
             res.status(400).json("You already have registered"); 
+            return;
         }
     });
 
@@ -30,6 +34,7 @@ router.post('/register', function (req, res) {
         newUser.validateInput(req.body);
     } catch (err) {
         res.status(400).json(err);
+        return;
     }
   
     newUser.save(function (err, newUser) {
@@ -59,6 +64,7 @@ router.post('/login', function (req, res) {
             
             req.session.user = data;
             res.status(200).json(data);
+            return;
         } else {
             res.status(400).json("Invalid username or password");
         }

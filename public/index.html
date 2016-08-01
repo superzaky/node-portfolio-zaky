@@ -1,16 +1,25 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Angular 2 QuickStart</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+        <!-- 1. Load libraries -->
+        <!-- Polyfill(s) for older browsers -->
+        <script src="node_modules/core-js/client/shim.min.js"></script>
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
+        <script src="node_modules/systemjs/dist/system.src.js"></script>
+        <!-- 2. Configure SystemJS -->
+        <script src="systemjs.config.js"></script>
+        <script>
+            System.import('app').catch(function (err) {
+                console.error(err);
+            });
+        </script>
     </head>
+    <!-- 3. Display the application -->
     <body>
-        <div>TODO write content</div>
-    </body>
+    <my-app>Loading...</my-app>
+</body>
 </html>

@@ -1,4 +1,5 @@
 require('../utils');
+require('events').EventEmitter.prototype._maxListeners = 100;
 
 var supertest = require("supertest");
 var should = require("should");
@@ -80,3 +81,5 @@ describe("A user logs in", function () {
                 });
     });
 });
+
+require('events').EventEmitter.prototype._maxListeners = 0;
