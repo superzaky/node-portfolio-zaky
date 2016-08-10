@@ -1,1 +1,9 @@
 node_modules
+bower_components
+public/app/**/*.js
+public/app/**/*.map
+public/typings
+public/css/style.css.map
+
+# misc
+npm-debug.log
