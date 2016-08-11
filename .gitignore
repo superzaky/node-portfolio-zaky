@@ -4,6 +4,8 @@ public/app/**/*.js
 public/app/**/*.map
 public/typings
 public/css/style.css.map
+public/components/**/*.js
+public/components/**/*.map
 
 # misc
 npm-debug.log
