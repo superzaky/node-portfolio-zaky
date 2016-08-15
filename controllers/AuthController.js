@@ -53,7 +53,7 @@ router.post('/register', function (req, res) {
 
 router.post('/login', function (req, res) {
     User.findOne({username: req.body.username, password: sha1(req.body.password)}, function (err, user) {
-       
+        
         if (user !== null) {
             var data = {
                 _id: user._id,

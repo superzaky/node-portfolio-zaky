@@ -1,15 +1,39 @@
-import { Routes, RouterModule } from '@angular/router';
+//import { Routes, RouterModule } from '@angular/router';
+import { provideRouter, RouterConfig } from '@angular/router';
+import { SearchComponent } from './components/search/search.component';
+import { AboutComponent } from './components/about/about.component';
+import { LoginComponent } from './components/login/login.component';
 
-import { LoginComponent } from '../components/login.component';
+//import { LoginComponent } from '../components/login.component';
 
-const appRoutes: Routes = [
+const appRoutes: RouterConfig = [
     {
-        path: 'login',
+        path: '', //represents the home page
+        component: SearchComponent,
+    },
+    {
+        path: 'about', 
+        component: AboutComponent,
+    },
+    {
+        path: 'login', 
         component: LoginComponent,
-        //    redirectTo: '/login',
-
-        //    pathMatch: 'full'
     }
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+export const appRouterProviders = [
+    provideRouter(appRoutes)
+];
+
+//TO DO: the code above is deprecated, use instead the code below:
+//const appRoutes: Routes = [
+//    {
+//        path: 'login',
+//        component: LoginComponent,
+//        //    redirectTo: '/login',
+//
+//        //    pathMatch: 'full'
+//    }
+//];
+//
+//export const routing = RouterModule.forRoot(appRoutes);
