@@ -20,8 +20,10 @@
                 <li><a href="#">C.V.</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a routerLink="/login" routerLinkActive="active">login</a></li>
-                <li><a href="#">Register</a></li>
+                <li *ngIf="user === null"><a routerLink="/login" routerLinkActive="active">login</a></li>
+                <li *ngIf="user"><a href="#">{{user.name}}</a></li>
+                <li *ngIf="user === null"><a href="#">Register</a></li>
+                <li *ngIf="user" (click)="logOut()"><a href="#">Log out</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

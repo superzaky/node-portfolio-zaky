@@ -4,23 +4,49 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable }     from  'rxjs/Rx';;
 import { User } from '../models/user';
+import { config } from '../config/config';
 
 @Injectable()
 export class UserService {
-    private loginUrl: string;
+    private url: string;
 
     constructor(private _http: Http) {
 
     }
 
     login(user: User) {
-        this.loginUrl = "http://localhost:3000/api/auth/login";
+        this.url = config.getEnvironmentVariable('endPoint')+'api/auth/login';
         let data = { "username": user.username, "password": user.password };
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this._http.post(this.loginUrl, body, options)
+        console.log("login url " + this.url);
+        return this._http.post(this.url, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    
+    logout() {
+        this.url = config.getEnvironmentVariable('endPoint')+'api/auth/logout';
+        console.log("session url " + this.url);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        options.body = '';
+
+        return this._http.get(this.url, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    
+    getSession() {
+        this.url = config.getEnvironmentVariable('endPoint')+'api/auth/';
+        console.log("session url " + this.url);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        options.body = '';
+
+        return this._http.get(this.url, options)
             .map(this.extractData)
             .catch(this.handleError);
     }

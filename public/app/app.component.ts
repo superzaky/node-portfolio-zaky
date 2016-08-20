@@ -16,7 +16,8 @@ import { HTTP_PROVIDERS } from '@angular/http';
 
 //AppComponent is the root of the application
 export class AppComponent {
+    //On page refresh the constructor gets called
     constructor() {
-        console.log('app constructor');
+        
     }
 }

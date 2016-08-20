@@ -9,7 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 const appRoutes: RouterConfig = [
     {
         path: '', //represents the home page
-        component: SearchComponent,
+        component: SearchComponent
     },
     {
         path: 'about', 
