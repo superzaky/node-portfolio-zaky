@@ -42,7 +42,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 
 //We use this to avoid the error: Cannot GET /login
-//but if you uncomment this, then you can't receive a session on the Angular 2 app..
+//but if we use this, then we can't receive a session on the Angular 2 app..
 //app.route('/*').get(function(req, res) { 
 //    return res.sendFile(path.join(__dirname, 'public/index.html')); 
 //});
