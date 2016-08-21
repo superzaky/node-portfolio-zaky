@@ -41,16 +41,15 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//We use this to avoid the error: Cannot GET /login
-//but if we use this, then we can't receive a session on the Angular 2 app..
-//app.route('/*').get(function(req, res) { 
-//    return res.sendFile(path.join(__dirname, 'public/index.html')); 
-//});
-
 // we are mapping the routes to end points.
 app.use('/', index);
 app.use('/api/auth', require('./controllers/AuthController'));
 app.use('/api/v1/', projects);
+
+//We use this to avoid the error: Cannot GET /login
+app.route('/*').get(function(req, res) { 
+    return res.sendFile(path.join(__dirname, 'public/index.html')); 
+});
 
 // TODO: catch 404 and forward to error handler
 
