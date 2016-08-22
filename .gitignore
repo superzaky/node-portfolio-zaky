@@ -2,6 +2,8 @@ node_modules
 bower_components
 public/app/**/*.js
 public/app/**/*.map
+public/src/**/*.js
+public/src/**/*.map
 public/typings
 public/css/style.css.map
 public/components/**/*.js
