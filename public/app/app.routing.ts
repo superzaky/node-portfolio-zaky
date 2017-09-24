@@ -3,6 +3,7 @@ import { provideRouter, RouterConfig } from '@angular/router';
 import { SearchComponent } from './components/search/search.component';
 import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
+import { CvComponent } from './components/cv/cv.component';
 
 //import { LoginComponent } from '../components/login.component';
 
@@ -18,6 +19,10 @@ const appRoutes: RouterConfig = [
     {
         path: 'login', 
         component: LoginComponent,
+    },
+    {
+        path: 'cv', 
+        component: CvComponent,
     }
 ];
 
