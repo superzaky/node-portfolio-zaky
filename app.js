@@ -39,7 +39,8 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(express.static(path.join(__dirname, 'public')));
+//The dist folder is typescript compiled to javascript as browser's don't understand typescript.
+app.use(express.static(path.join(__dirname, 'public/dist')));
 
 // we are mapping the routes to end points.
 app.use('/', index);
@@ -48,7 +49,8 @@ app.use('/api/v1/', projects);
 
 //We use this to avoid the error: Cannot GET /login
 app.route('/*').get(function(req, res) { 
-    return res.sendFile(path.join(__dirname, 'public/index.html')); 
+    //The dist folder is typescript compiled to javascript as browser's don't understand typescript.
+    return res.sendFile(path.join(__dirname, 'public/dist/index.html')); 
 });
 
 // TODO: catch 404 and forward to error handler

@@ -1,11 +1,13 @@
 node_modules
 bower_components
-public/app/**/*.js
-public/app/**/*.map
-public/typings
-public/css/style.css.map
-public/components/**/*.js
-public/components/**/*.map
+public/src/app/**/*.js
+public/src/app/**/*.map
+public/src/css/style.css.map
+public/src/css/style.map
+public/src/css/main.css.map
+public/src/css/main.map
+public/src/app/components/**/*.js
+public/src/app/components/**/*.map
 
 # misc
 npm-debug.log

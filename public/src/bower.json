@@ -1,0 +1,25 @@
+{
+  "name": "node-portfolio-zaky",
+  "homepage": "https://github.com/superzaky/node-portfolio-zaky",
+  "authors": [
+    "superzaky <superkytoz@gmail.com>"
+  ],
+  "description": "A portfolio to show my work and skills",
+  "main": "index.html",
+  "keywords": [
+    "portfolio",
+    "zaky"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "Font-Awesome#^4.6.3"
+  }
+}
