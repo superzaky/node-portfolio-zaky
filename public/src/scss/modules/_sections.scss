@@ -5,7 +5,7 @@ section{
 
 .section-showcase{
     height:$showcase-height;
-    background:url($showcase-image) no-repeat top center;
+    background: linear-gradient(90deg, $primary-color, $secondary-color);
 
     .showcase-content{
         padding:110px 15px;
@@ -13,7 +13,7 @@ section{
     }
 
     h1{
-        color:$primary-color;
+        color:$white;
     }
 }
 
@@ -40,4 +40,36 @@ section{
 
 .section-dark{
     @include add-background($dark-color);
+}
+
+.lead {
+    color: $white;
+}
+.zigzag {
+    position: relative;
+    top: 50%;
+    width: 100%;
+    height: 50%;
+    background: $white;
+    padding: 0px 0;
+
+    &:before {
+        content: "";
+        position: relative;
+        width: 100%;
+        height: 15px;
+        display: block;
+        background: linear-gradient(
+            -45deg, transparent 33.33%,
+            $primary-color 33.33%, $secondary-color 66.66%,
+            transparent 66.66%
+        ), linear-gradient(
+            45deg, transparent 33.33%,
+            $primary-color 33.33%, $secondary-color 66.66%,
+            transparent 66.66%
+        );
+
+        background-size: 30px 60px;
+        transform: rotateX(180deg);
+    }
 }

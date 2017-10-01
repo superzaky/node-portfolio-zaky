@@ -69,7 +69,7 @@ body {
 }
 
 a {
-  color: #8b0000;
+  color: #FF5700;
 }
 
 ul, li {
@@ -166,11 +166,11 @@ img.device-small {
 }
 
 .fa-primary {
-  color: #8b0000;
+  color: #FF5700;
 }
 
 .fa-border {
-  border: 1px solid #8b0000;
+  border: 1px solid #FF5700;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -181,11 +181,11 @@ img.device-small {
 
 /* Headings */
 .heading-primary, .heading-primary-a {
-  color: #8b0000;
+  color: #FF5700;
 }
 
 .heading-primary-a {
-  border-bottom: 2px solid #8b0000;
+  border-bottom: 2px solid #FF5700;
 }
 
 .heading-secondary, .heading-secondary-a {
@@ -214,7 +214,7 @@ img.device-small {
 
 /* Emphasis Text */
 .em-primary {
-  color: #8b0000;
+  color: #FF5700;
 }
 
 .em-secondary {
@@ -245,7 +245,7 @@ img.device-small {
 }
 
 .block-primary {
-  background: #8b0000;
+  background: #FF5700;
   color: #ffffff;
 }
 
@@ -278,14 +278,14 @@ img.device-small {
 
 .block-primary-head h3 {
   padding: 15px 5px 15px 10px;
-  background: #8b0000;
+  background: #FF5700;
   color: #ffffff;
   margin: 0;
   font-size: 18px;
 }
 
 .block-primary-head .block-content {
-  border: 1px solid #8b0000;
+  border: 1px solid #FF5700;
   padding: 10px;
 }
 
@@ -307,13 +307,13 @@ img.device-small {
 
 /* _buttons.scss */
 .btn-primary {
-  background: #8b0000;
+  background: #FF5700;
   color: #ffffff;
   border: 2px solid #ffffff;
 }
 
 .btn-primary:hover {
-  background: #580000;
+  background: #cc4600;
   border: 2px solid #ffffff;
 }
 
@@ -324,7 +324,7 @@ section {
 
 .section-showcase {
   height: 400px;
-  background: url("../images/jungle-bridge-1920x1080.jpg") no-repeat top center;
+  background: linear-gradient(90deg, #FF5700, #7fba00);
 }
 
 .section-showcase .showcase-content {
@@ -333,11 +333,11 @@ section {
 }
 
 .section-showcase h1 {
-  color: #8b0000;
+  color: #ffffff;
 }
 
 .section-primary, .section-primary-a, .section-primary-b {
-  background: #8b0000;
+  background: #FF5700;
   color: #ffffff;
 }
 
@@ -364,6 +364,30 @@ section {
   color: #ffffff;
 }
 
+.lead {
+  color: #ffffff;
+}
+
+.zigzag {
+  position: relative;
+  top: 50%;
+  width: 100%;
+  height: 50%;
+  background: #ffffff;
+  padding: 0px 0;
+}
+
+.zigzag:before {
+  content: "";
+  position: relative;
+  width: 100%;
+  height: 15px;
+  display: block;
+  background: linear-gradient(-45deg, transparent 33.33%, #FF5700 33.33%, #7fba00 66.66%, transparent 66.66%), linear-gradient(45deg, transparent 33.33%, #FF5700 33.33%, #7fba00 66.66%, transparent 66.66%);
+  background-size: 30px 60px;
+  transform: rotateX(180deg);
+}
+
 /* _components.scss */
 /* Carousel */
 .carousel {
@@ -385,7 +409,7 @@ section {
 }
 
 .tab-primary .tab-pane, .tab-primary .nav-tabs > li.active > a, .tab-primary .nav-tabs > li.active > a:hover, .tab-primary .nav-tabs > li.active > a:focus {
-  background: #8b0000;
+  background: #FF5700;
   color: #ffffff;
 }
 
@@ -419,7 +443,7 @@ section {
   border: 0;
   height: 50px;
   width: 80%;
-  border: 2px solid #8b0000;
+  border: 2px solid #FF5700;
   font-size: 18px;
   padding-left: 10px;
   padding-bottom: 5px;
@@ -436,7 +460,7 @@ section {
 /* LAYOUTS - Page layout styles */
 /* Navbar */
 .navbar {
-  width: 90%;
+  width: 100%;
   margin: auto;
   border-left: 1px solid #e7e7e7;
   border-right: 1px solid #e7e7e7;
@@ -447,7 +471,7 @@ section {
 }
 
 .navbar a {
-  color: #8b0000 !important;
+  color: #FF5700 !important;
   font-size: 20px;
   letter-spacing: -0.5px;
   padding-bottom: 24px !important;
@@ -455,7 +479,7 @@ section {
 }
 
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-  background: #8b0000 !important;
+  background: #FF5700 !important;
   color: #fff !important;
 }
 
