@@ -11,15 +11,19 @@ var User = require('../../models/User');
 
 describe("A user creates a project", function () {
     var id = "asd";
-    it('should create a SINGLE project on /api/project POST', function (done) {
+    it('should create a SINGLE project on /api/projects POST', function (done) {
         //calling PROJECT api
         server
-                .post('/api/project')
+                .post('/api/projects')
                 .send({
-                    _id: "000000000000000000000001", //id of the user
+                    user: "000000000000000000000001", //id of the user
                     name: "project cake",
                     content: "some project about cakes.",
-                    iamge: "http://myimages.com/myimage01.png"
+                    images: [ 
+                        {link: "http://myimages.com/myimage01.png"}, 
+                        {link: "http://myimages.com/myimage02.png"}, 
+                    ],
+                    projectType: "Web"
                 })
                 .expect("Content-type", /json/)
                 .expect(200)
@@ -27,9 +31,15 @@ describe("A user creates a project", function () {
                     //TO DO: compare created_at and updated_at
                     var data = {
                         _id: res.body._id, //the _id is dynamic because it's just created
+                        user: "000000000000000000000001",
                         name: "project cake",
                         content: "some project about cakes.",
-                        iamge: "http://myimages.com/myimage01.png"
+                        views: 0,
+                        images: [ 
+                            {link: "http://myimages.com/myimage01.png"}, 
+                            {link: "http://myimages.com/myimage02.png"}, 
+                        ],
+                        projectType: "Web"
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);

@@ -11,3 +11,6 @@ public/src/app/components/**/*.map
 
 # misc
 npm-debug.log
+
+#Visual studio code
+.vscode/*

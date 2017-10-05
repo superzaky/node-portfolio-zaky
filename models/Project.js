@@ -4,12 +4,17 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var projectSchema = new Schema({
+    user: String,
     name: String,
     content: {type: String},
-    views: {type: String},
+    views: 0,
     images: [
-        {link: String, type: String}
+        {   
+            _id : false, 
+            link: String
+        }
     ],
+    projectType: String,
     created_at: Date,
     updated_at: Date
 });
