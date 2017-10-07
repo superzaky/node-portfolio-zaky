@@ -19,6 +19,14 @@ var projectSchema = new Schema({
     updated_at: Date
 });
 
+projectSchema.methods.validateInput = function (body) {
+    if (body.user === "" || body.hasOwnProperty('user') === false) throw "Please login to create a project.";
+    
+    if (body.name === "" || body.hasOwnProperty('name') === false) throw "A name is required.";
+
+    return true;
+}
+
 // the schema is useless so far
 // we need to create a model using it
 var Project = mongoose.model('Project', projectSchema);

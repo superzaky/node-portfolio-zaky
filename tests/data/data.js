@@ -13,6 +13,20 @@ var data = {
                     password: "open",
                     admin: false
                 }
+            ],
+            Project: [
+                {
+                    _id: ObjectId("000000000000000000000001"),
+                    user: "000000000000000000000001",
+                    name: "project fruit",
+                    content: "some project about fruit.",
+                    views: 0,
+                    images: [ 
+                        {link: "http://myimages.com/myimage03.png"}, 
+                        {link: "http://myimages.com/myimage04.png"}, 
+                    ],
+                    projectType: "App"
+                }
             ]
         }, function (err, data) {
             // data is an array of all the documents created 

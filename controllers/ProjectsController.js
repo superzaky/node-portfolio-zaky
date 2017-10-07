@@ -14,6 +14,43 @@ router.get('/', function (req, res) {
     res.status(200).json(req.session.user);
 });
 
+router.put('/projects', function (req, res) { 
+    Project.findOne({_id: req.body._id}, function (err, currentProject) {
+
+        if (currentProject !== null) {
+            // Update each attribute with any possible attribute that may have been submitted in the body of the request
+            // If that attribute isn't in the request body, default back to whatever it was before.
+            currentProject.user = req.body.user || currentProject.user;
+            currentProject.name = req.body.name || currentProject.name;
+            currentProject.content = req.body.content || currentProject.content;
+            currentProject.images = req.body.images || currentProject.images;
+            currentProject.projectType = req.body.projectType || currentProject.projectType;
+
+            currentProject.save(function (err, updatedProject) {
+                if (err){
+                    console.log("error msg: ");
+                    console.log(err);
+                    console.log("end error msg");
+                } 
+                else {
+                    var data = {
+                        _id: updatedProject._id,
+                        user: updatedProject.user,
+                        name: updatedProject.name,
+                        content: updatedProject.content,
+                        views: updatedProject.views,
+                        images: updatedProject.images,
+                        projectType: updatedProject.projectType
+                    };
+                    res.status(200).json(data);
+                }
+            }); 
+        } else {
+            res.status(400).json("Project doesn't exist.");
+        }
+    });
+});
+
 router.post('/projects', function (req, res) {
     var newProject = Project({
         user: req.body.user,
@@ -23,6 +60,13 @@ router.post('/projects', function (req, res) {
         projectType: req.body.projectType,
         views: 0
     });
+
+    try {
+        newProject.validateInput(req.body);
+    } catch (err) {
+        res.status(400).json(err);
+        return;
+    }
   
     newProject.save(function (err, newProject) {
         if (err){
