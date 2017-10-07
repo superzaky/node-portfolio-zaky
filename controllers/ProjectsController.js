@@ -14,7 +14,37 @@ router.get('/', function (req, res) {
     res.status(200).json(req.session.user);
 });
 
+router.delete('/projects/:id', function (req, res) { 
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    }
+
+    // get the project
+    Project.findOne({ _id: req.params.id}, function(err, currentProject) {
+        if (currentProject !== null) {
+            if (err) console.log("een error " + error);
+        
+            // delete project
+            currentProject.remove(function(err) {
+                if (err) throw err;
+        
+                res.status(200).json("Project is successfully deleted.");
+            });
+        } else {
+            console.log("project is niet gevonden");
+            res.status(400).json("Project doesn't exist.");
+        }
+    });
+});
+
 router.put('/projects', function (req, res) { 
+
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    }
+    
     Project.findOne({_id: req.body._id}, function (err, currentProject) {
 
         if (currentProject !== null) {
@@ -52,6 +82,11 @@ router.put('/projects', function (req, res) {
 });
 
 router.post('/projects', function (req, res) {
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    }
+
     var newProject = Project({
         user: req.body.user,
         name: req.body.name,

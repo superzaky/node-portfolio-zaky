@@ -9,8 +9,9 @@ var server = supertest.agent(app);
 // UNIT test begin
 var User = require('../../models/User');
 
-describe("A user creates a project", function () {
+describe("A user deletes a project", function () {
     var id = "asd";
+
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
         server
@@ -33,40 +34,20 @@ describe("A user creates a project", function () {
                     done();
                 });
     });
-    
-    it('should create a SINGLE project on /api/projects POST', function (done) {
+
+    it('should delete a SINGLE project on /api/projects DELETE', function (done) {
         //calling PROJECT api
         server
-                .post('/api/projects')
-                .send({
-                    user: "000000000000000000000001", //id of the user
-                    name: "project cake",
-                    content: "some project about cakes.",
-                    images: [ 
-                        {link: "http://myimages.com/myimage01.png"}, 
-                        {link: "http://myimages.com/myimage02.png"}, 
-                    ],
-                    projectType: "Web"
-                })
+                .delete('/api/projects/000000000000000000000002')
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    //TO DO: compare created_at and updated_at
-                    var data = {
-                        _id: res.body._id, //the _id is dynamic because it's just created
-                        user: "000000000000000000000001",
-                        name: "project cake",
-                        content: "some project about cakes.",
-                        views: 0,
-                        images: [ 
-                            {link: "http://myimages.com/myimage01.png"}, 
-                            {link: "http://myimages.com/myimage02.png"}, 
-                        ],
-                        projectType: "Web"
-                    };
+                    console.log("res " + res.body._id);
+                    
+                    var data = "Project is successfully deleted.";
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
-                    //TO DO: check if project is inserted in the database through using the ID to find the project
+                    //TO DO: check if project is deleted in the database through using the ID to find the project
                     id = res.body._id;
                     done();
                 });

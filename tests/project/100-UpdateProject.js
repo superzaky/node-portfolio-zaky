@@ -11,6 +11,30 @@ var User = require('../../models/User');
 
 describe("A user updates a project", function () {
     var id = "asd";
+
+    it('should create a SINGLE session on /api/auth/login UPDATE', function (done) {
+        //calling LOGIN api
+        server
+                .post('/api/auth/login')
+                .send({
+                    username: "jimmy",
+                    password: "open"
+                })
+                .expect("Content-type", /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    var data = {
+                        _id: "000000000000000000000001",
+                        name: "Jimmy Doe",
+                        username: "jimmy",
+                        admin: false
+                    };
+                    res.status.should.equal(200);
+                    assert.deepEqual(res.body, data);
+                    done();
+                });
+    });
+
     it('should update a SINGLE project on /api/projects POST', function (done) {
         //calling PROJECT api
         server
