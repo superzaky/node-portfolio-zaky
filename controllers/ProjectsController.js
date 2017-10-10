@@ -14,6 +14,45 @@ router.get('/', function (req, res) {
     res.status(200).json(req.session.user);
 });
 
+router.get('/projects', function (req, res) { 
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    }
+
+    // get the projects
+    Project.find({}, function(err, currentProjects) {
+        // console.log("curr proj " + currentProjects);
+        if (currentProjects !== null) {
+            if (err) console.log("een error " + error);
+
+            res.status(200).json(currentProjects);
+        } else {
+            console.log("geen projecten gevonden");
+            res.status(400).json("No projects found.");
+        }
+    });
+});
+
+router.get('/projects/:id', function (req, res) { 
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    }
+
+    // get the project
+    Project.findOne({ _id: req.params.id}, function(err, currentProject) {
+        if (currentProject !== null) {
+            if (err) console.log("een error " + error);
+
+            res.status(200).json(currentProject);
+        } else {
+            console.log("project is niet gevonden");
+            res.status(400).json("Project doesn't exist.");
+        }
+    });
+});
+
 router.delete('/projects/:id', function (req, res) { 
     if (!req.session.user || req.session.user === undefined) {
         res.status(404).json('Session not found');

@@ -37,6 +37,17 @@ var data = {
                         {link: "http://myimages.com/myimage05.png"}
                     ],
                     projectType: "Desktop"
+                },
+                {
+                    _id: ObjectId("000000000000000000000003"),
+                    user: "000000000000000000000001",
+                    name: "project table",
+                    content: "some project about a table.",
+                    views: 0,
+                    images: [ 
+                        {link: "http://myimages.com/myimage06.png"}
+                    ],
+                    projectType: "Desktop"
                 }
             ]
         }, function (err, data) {
