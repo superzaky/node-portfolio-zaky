@@ -13,6 +13,7 @@ import { SearchComponent } from './components/search/search.component';
 import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { CvComponent } from './components/cv/cv.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
 
 const routes: Routes = [
     {
@@ -30,6 +31,10 @@ const routes: Routes = [
     {
         path: 'cv', 
         component: CvComponent,
+    },
+    {
+        path: 'portfolio', 
+        component: PortfolioComponent,
     }
 ];
 
@@ -49,7 +54,8 @@ const routes: Routes = [
         FooterComponent,
         SearchComponent,
         AboutComponent,
-        CvComponent
+        CvComponent,
+        PortfolioComponent
     ],
     providers: [
 //        appRoutingProviders
