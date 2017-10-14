@@ -20,18 +20,38 @@ router.get('/projects', function (req, res) {
         return;
     }
 
-    // get the projects
-    Project.find({}, function(err, currentProjects) {
-        // console.log("curr proj " + currentProjects);
-        if (currentProjects !== null) {
-            if (err) console.log("een error " + error);
+    if(req.query.page !== undefined && isNaN(req.query.pageSize) !== true) {
+        var perPage = Number(req.query.pageSize)
+        , page = req.query.page - 1;
+        var result = perPage * page;
 
-            res.status(200).json(currentProjects);
-        } else {
-            console.log("geen projecten gevonden");
-            res.status(400).json("No projects found.");
-        }
-    });
+        Project.find({})
+        .limit(perPage)
+        .skip(perPage * page)
+        .exec(function(err, currentProjects) {
+            
+            if (currentProjects !== null) {
+                if (err) console.log("een error " + error);
+                
+                res.status(200).json(currentProjects);
+            } else {
+                console.log("geen projecten gevonden");
+                res.status(400).json("No projects found.");
+            }
+        });  
+    } else {
+        // get the projects
+        Project.find({}, function(err, currentProjects) {
+            if (currentProjects !== null) {
+                if (err) console.log("een error " + error);
+    
+                res.status(200).json(currentProjects);
+            } else {
+                console.log("geen projecten gevonden");
+                res.status(400).json("No projects found.");
+            }
+        });
+    }
 });
 
 router.get('/projects/:id', function (req, res) { 

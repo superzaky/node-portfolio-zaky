@@ -48,6 +48,41 @@ var data = {
                         {link: "http://myimages.com/myimage06.png"}
                     ],
                     projectType: "Desktop"
+                },
+                {
+                    _id: ObjectId("000000000000000000000004"),
+                    user: "000000000000000000000001",
+                    name: "project fruit",
+                    content: "some project about fruit.",
+                    views: 0,
+                    images: [ 
+                        {link: "http://myimages.com/myimage03.png"}, 
+                        {link: "http://myimages.com/myimage04.png"}, 
+                    ],
+                    projectType: "App"
+                },
+                {
+                    _id: ObjectId("000000000000000000000005"),
+                    user: "000000000000000000000001",
+                    name: "project tv",
+                    content: "some project about tv.",
+                    views: 0,
+                    images: [ 
+                        {link: "http://myimages.com/myimage12.png"}, 
+                    ],
+                    projectType: "App"
+                },                
+                {
+                    _id: ObjectId("000000000000000000000006"),
+                    user: "000000000000000000000001",
+                    name: "project fruit",
+                    content: "some project about fruit.",
+                    views: 0,
+                    images: [ 
+                        {link: "http://myimages.com/myimage03.png"}, 
+                        {link: "http://myimages.com/myimage04.png"}, 
+                    ],
+                    projectType: "App"
                 }
             ]
         }, function (err, data) {
