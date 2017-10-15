@@ -3,13 +3,14 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 @Injectable()
 export class ProjectService {
-    private readonly vehiclesEndpoint = '/api/projects';
-    private readonly vehiclesURL = 'http://localhost:3000/api/projects';
+    private readonly projectsEndpoint = '/api/projects';
+    private readonly projectsURL = 'http://localhost:3000/api/projects';
 
     constructor(private http: Http) { }
 
-    getVehicles(filter) {
-        return this.http.get(this.vehiclesURL + '?' + this.toQueryString(filter))
+    getProjects(filter) {
+        console.log("de url = " + this.projectsURL + '?' + this.toQueryString(filter));
+        return this.http.get(this.projectsURL + '?' + this.toQueryString(filter))
             .map(res => res.json());
     }
 

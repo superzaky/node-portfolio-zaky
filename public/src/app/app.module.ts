@@ -14,6 +14,7 @@ import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { CvComponent } from './components/cv/cv.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { PaginationComponent } from './components/shared/pagination.component';
 
 const routes: Routes = [
     {
@@ -55,7 +56,8 @@ const routes: Routes = [
         SearchComponent,
         AboutComponent,
         CvComponent,
-        PortfolioComponent
+        PortfolioComponent,
+        PaginationComponent
     ],
     providers: [
 //        appRoutingProviders

@@ -15,14 +15,19 @@ router.get('/', function (req, res) {
 });
 
 router.get('/projects', function (req, res) { 
-    if (!req.session.user || req.session.user === undefined) {
-        res.status(404).json('Session not found');
-        return;
-    }
+    // if (!req.session.user || req.session.user === undefined) {
+    //     res.status(404).json('Session not found');
+    //     return;
+    // }
 
-    if(req.query.page !== undefined && isNaN(req.query.pageSize) !== true) {
-        var perPage = Number(req.query.pageSize)
-        , page = req.query.page - 1;
+    if(isNaN(req.query.pageSize) !== true) {
+
+        var page = 0;
+        if (req.query.page !== undefined) {
+            page = req.query.page - 1;
+        }
+
+        var perPage = Number(req.query.pageSize);
         var result = perPage * page;
 
         Project.find({})
