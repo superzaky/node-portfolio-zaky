@@ -24,9 +24,7 @@ export class PortfolioComponent {
 
     private populateProjects() {
         this.projectService.getProjects(this.query)
-            .subscribe(result => {
-                console.log("resiu = " + JSON.stringify(result, null, 4));
-                this.queryResult = result});
+            .subscribe(result => this.queryResult = result);
     }
 
     onPageChanged(page) {

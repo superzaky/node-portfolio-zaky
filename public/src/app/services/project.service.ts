@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 @Injectable()
 export class ProjectService {
@@ -11,6 +11,21 @@ export class ProjectService {
     getProjects(filter) {
         console.log("de url = " + this.projectsURL + '?' + this.toQueryString(filter));
         return this.http.get(this.projectsURL + '?' + this.toQueryString(filter))
+            .map(res => res.json());
+    }
+
+    getProject(id) {
+        return this.http.get(this.projectsURL + '/' + id)
+        .map(res => this.extractData(res));
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body || {};
+    }
+
+    delete(id) {
+        return this.http.delete(this.projectsEndpoint + '/' + id)
             .map(res => res.json());
     }
 

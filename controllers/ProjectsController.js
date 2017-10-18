@@ -60,10 +60,10 @@ router.get('/projects', function (req, res) {
 });
 
 router.get('/projects/:id', function (req, res) { 
-    if (!req.session.user || req.session.user === undefined) {
-        res.status(404).json('Session not found');
-        return;
-    }
+    // if (!req.session.user || req.session.user === undefined) {
+    //     res.status(404).json('Session not found');
+    //     return;
+    // }
 
     // get the project
     Project.findOne({ _id: req.params.id}, function(err, currentProject) {

@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CvComponent } from './components/cv/cv.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PaginationComponent } from './components/shared/pagination.component';
+import { ViewProjectComponent } from './components/view-project/view-project';
 
 const routes: Routes = [
     {
@@ -36,6 +37,10 @@ const routes: Routes = [
     {
         path: 'portfolio', 
         component: PortfolioComponent,
+    },
+    {
+        path: 'projects/:id', 
+        component: ViewProjectComponent,
     }
 ];
 
@@ -57,7 +62,8 @@ const routes: Routes = [
         AboutComponent,
         CvComponent,
         PortfolioComponent,
-        PaginationComponent
+        PaginationComponent,
+        ViewProjectComponent
     ],
     providers: [
 //        appRoutingProviders

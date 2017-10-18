@@ -30,14 +30,14 @@
             <!--for loop hier-->
             <div *ngFor="let p of queryResult" class="col-lg-4 col-md-6 col-sm-6 col-xs-12 portfolio-item">
                 <div class="block block-light block-center">
-                    <a [routerLink]="['/projects/', p.id]">
+                    <a [routerLink]="['/projects/', p._id]">
                         <img class="img-responsive equal-height" src="">
                     </a>
                     <h3>
-                        <a [routerLink]="['/projects/', p.id]" class="project-name"> {{ p.name }} </a>
+                        <a [routerLink]="['/projects/', p._id]" class="project-name"> {{ p.name }} </a>
                     </h3>
                     <p>content 0-50...</p> 
-                    <a [routerLink]="['/projects/', p.id]" class="btn btn-primary btn-custom">Meer info <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a [routerLink]="['/projects/', p._id]" class="btn btn-primary btn-custom">Meer info <span class="glyphicon glyphicon-chevron-right"></span></a>
                 </div>
             </div>
         </div>
