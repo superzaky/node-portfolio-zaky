@@ -16,6 +16,7 @@ import { CvComponent } from './components/cv/cv.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PaginationComponent } from './components/shared/pagination.component';
 import { ViewProjectComponent } from './components/view-project/view-project';
+import { ProjectFormComponent } from './components/project-form/project-form.component';
 
 const routes: Routes = [
     {
@@ -37,6 +38,10 @@ const routes: Routes = [
     {
         path: 'portfolio', 
         component: PortfolioComponent,
+    },
+    {
+        path: 'projects/new', 
+        component: ProjectFormComponent,
     },
     {
         path: 'projects/:id', 
@@ -63,7 +68,8 @@ const routes: Routes = [
         CvComponent,
         PortfolioComponent,
         PaginationComponent,
-        ViewProjectComponent
+        ViewProjectComponent,
+        ProjectFormComponent
     ],
     providers: [
 //        appRoutingProviders

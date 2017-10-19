@@ -1,3 +1,4 @@
+import { Project } from './../models/project';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -7,6 +8,16 @@ export class ProjectService {
     private readonly projectsURL = 'http://localhost:3000/api/projects';
 
     constructor(private http: Http) { }
+
+    create(project) {
+        return this.http.post(this.projectsEndpoint, project)
+            .map(res => res.json());
+    }
+
+    update(project: Project) {
+        return this.http.put(this.projectsEndpoint + '/' + project.id, project)
+            .map(res => res.json());
+    }
 
     getProjects(filter) {
         console.log("de url = " + this.projectsURL + '?' + this.toQueryString(filter));

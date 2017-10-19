@@ -42,6 +42,10 @@ section{
     @include add-background($dark-color);
 }
 
+.section-form {
+    margin-top: 100px;
+}
+
 .lead {
     color: $white;
 }

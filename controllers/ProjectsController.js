@@ -48,7 +48,7 @@ router.get('/projects', function (req, res) {
         // get the projects
         Project.find({}, function(err, currentProjects) {
             if (currentProjects !== null) {
-                if (err) console.log("een error " + error);
+                if (err) console.log("een error " + err);
     
                 res.status(200).json(currentProjects);
             } else {
@@ -68,7 +68,7 @@ router.get('/projects/:id', function (req, res) {
     // get the project
     Project.findOne({ _id: req.params.id}, function(err, currentProject) {
         if (currentProject !== null) {
-            if (err) console.log("een error " + error);
+            if (err) console.log("een error " + err);
 
             res.status(200).json(currentProject);
         } else {

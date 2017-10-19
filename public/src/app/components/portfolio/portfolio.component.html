@@ -10,7 +10,10 @@
                 </form>
             </div>
             <div class="col-md-6">
-
+                <p> 
+                <!-- <p *ngIf="auth.authenticated()"> -->
+                    <a [routerLink]="['/projects/new']" class="btn btn-primary">New project</a>
+                </p>
             </div>
         </div>
     </div>
