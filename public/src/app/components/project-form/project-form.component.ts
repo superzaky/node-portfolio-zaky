@@ -20,6 +20,9 @@ export class ProjectFormComponent implements OnInit {
         content: '',
         projectType: '',
         views: 0,
+        image: {
+            link: ''
+        },
         images: []
     };
 
@@ -48,10 +51,11 @@ export class ProjectFormComponent implements OnInit {
         this.project.images = p.images;
     }
 
-    submit() {
+    submit() {        
+        this.project.images.push(this.project.image);
         var result$ = (this.project.id) ? this.projectService.update(this.project) : this.projectService.create(this.project);
         result$.subscribe(project => {
-            this.router.navigate(['/projects/', project.id])
+            this.router.navigate(['/projects/', project._id])
         });
     }
 }

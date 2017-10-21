@@ -20,7 +20,7 @@ var projectSchema = new Schema({
 });
 
 projectSchema.methods.validateInput = function (body) {
-    if (body.user === "" || body.hasOwnProperty('user') === false) throw "Please login to create a project.";
+    // if (body.user === "" || body.hasOwnProperty('user') === false) throw "Please login to create a project.";
     
     if (body.name === "" || body.hasOwnProperty('name') === false) throw "A name is required.";
 

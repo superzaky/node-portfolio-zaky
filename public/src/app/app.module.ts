@@ -17,6 +17,7 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PaginationComponent } from './components/shared/pagination.component';
 import { ViewProjectComponent } from './components/view-project/view-project';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 const routes: Routes = [
     {
@@ -55,7 +56,8 @@ const routes: Routes = [
         FormsModule,
         // RouterModule,
         RouterModule.forRoot(routes),
-        HttpModule 
+        HttpModule ,
+        CKEditorModule
 //        routing
     ],
     declarations: [

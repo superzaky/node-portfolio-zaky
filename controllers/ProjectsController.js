@@ -21,15 +21,15 @@ router.get('/projects', function (req, res) {
     // }
 
     if(isNaN(req.query.pageSize) !== true) {
-
+        
         var page = 0;
         if (req.query.page !== undefined) {
             page = req.query.page - 1;
         }
-
+        
         var perPage = Number(req.query.pageSize);
         var result = perPage * page;
-
+        
         Project.find({})
         .limit(perPage)
         .skip(perPage * page)
@@ -37,8 +37,15 @@ router.get('/projects', function (req, res) {
             
             if (currentProjects !== null) {
                 if (err) console.log("een error " + error);
-                
-                res.status(200).json(currentProjects);
+
+                Project.count({}, function(err, count){
+                    var obj = {
+                        totalItems: count,
+                        items: currentProjects
+                    }
+                    // console.log("json stringfy  obj  = "+JSON.stringify(obj, null, 4));
+                    res.status(200).json(obj);
+                });
             } else {
                 console.log("geen projecten gevonden");
                 res.status(400).json("No projects found.");
@@ -49,8 +56,15 @@ router.get('/projects', function (req, res) {
         Project.find({}, function(err, currentProjects) {
             if (currentProjects !== null) {
                 if (err) console.log("een error " + err);
-    
-                res.status(200).json(currentProjects);
+                
+                Project.count({}, function(err, count){
+                    var obj = {
+                        totalItems: count,
+                        items: currentProjects
+                    }
+                    res.status(200).json(obj);
+                });
+                
             } else {
                 console.log("geen projecten gevonden");
                 res.status(400).json("No projects found.");
@@ -61,8 +75,8 @@ router.get('/projects', function (req, res) {
 
 router.get('/projects/:id', function (req, res) { 
     // if (!req.session.user || req.session.user === undefined) {
-    //     res.status(404).json('Session not found');
-    //     return;
+        //     res.status(404).json('Session not found');
+        //     return;
     // }
 
     // get the project
@@ -146,11 +160,11 @@ router.put('/projects', function (req, res) {
 });
 
 router.post('/projects', function (req, res) {
-    if (!req.session.user || req.session.user === undefined) {
-        res.status(404).json('Session not found');
-        return;
-    }
-
+    // if (!req.session.user || req.session.user === undefined) {
+    //     res.status(404).json('Session not found');
+    //     return;
+    // }
+    
     var newProject = Project({
         user: req.body.user,
         name: req.body.name,
@@ -159,7 +173,8 @@ router.post('/projects', function (req, res) {
         projectType: req.body.projectType,
         views: 0
     });
-
+    
+    console.log("newProject =" + newProject);
     try {
         newProject.validateInput(req.body);
     } catch (err) {

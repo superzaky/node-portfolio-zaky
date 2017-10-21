@@ -6,23 +6,23 @@
             </p>
             <div class="col-lg-10 col-lg-push-1">      
                 <form #f="ngForm" (ngSubmit)="submit()" novalidate>
-                    asd
                     <div class="form-group">
                         <label for="project">Project</label>
                         <input id="projectName" type="text" class="form-control" [(ngModel)]="project.name" name="projectName" required #projectName="ngModel">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Content</label>
-                        <textarea class="form-control" name="projectContent" [(ngModel)]="project.content"> </textarea>
-                        <script>
-                            CKEDITOR.replace( 'projectContent' );
-                        </script>
-                    </div>  
-                    <div class="form-group">
-                        <img *ngIf="project" class="img-responsive equal-height" src="{{project.images}}">
-                        
+                        <ckeditor
+                        name = "projectContent"
+                        [(ngModel)]="project.content"
+                        [readonly]="false"
+                        debounce="500">
+                    </ckeditor>
+                </div>  
+                <div class="form-group">
+                    <img *ngIf="project" class="img-responsive equal-height" src="{{project.image.link}}">    
                         <label for="exampleInputFile">Insert uploaded image url</label>
-                        <input id="projectImages" type="text" class="form-control" [(ngModel)]="project.images" name="projectImages" required #projectImages="ngModel">
+                        <input id="projectImage" type="text" class="form-control" [(ngModel)]="project.image.link" name="projectImage" required #projectImage="ngModel">
                     </div>  
     
                     <button class="btn btn-primary">Save</button>

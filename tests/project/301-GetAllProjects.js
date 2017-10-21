@@ -42,45 +42,74 @@ describe("A user gets projects", function () {
                 .end(function (err, res) {
                     console.log("res " + res.body);
                     
-                    var data = [
-                        {
-                            _id: "000000000000000000000001",
-                            user: "000000000000000000000001",
-                            name: "project fruit",
-                            content: "some project about fruit.",
-                            views: 0,
-                            images: [ 
-                                {link: "http://myimages.com/myimage03.png"}, 
-                                {link: "http://myimages.com/myimage04.png"}, 
-                            ],
-                            projectType: "App",
-                            __v: 0
-                        },
-                        {
-                            _id: "000000000000000000000002",
-                            user: "000000000000000000000001",
-                            name: "project bike",
-                            content: "some project about a bike.",
-                            views: 0,
-                            images: [ 
-                                {link: "http://myimages.com/myimage05.png"}
-                            ],
-                            projectType: "Desktop",
-                            __v: 0
-                        },
-                        {
-                            _id: "000000000000000000000003",
-                            user: "000000000000000000000001",
-                            name: "project table",
-                            content: "some project about a table.",
-                            views: 0,
-                            images: [ 
-                                {link: "http://myimages.com/myimage06.png"}
-                            ],
-                            projectType: "Desktop",
-                            __v: 0
-                        }
-                    ];
+                    var data = {
+                        totalItems: 6,
+                        items: [
+                            {
+                                _id: "000000000000000000000001",
+                                user: "000000000000000000000001",
+                                name: "project fruit",
+                                content: "some project about fruit.",
+                                views: 0,
+                                images: [ 
+                                    {link: "http://myimages.com/myimage03.png"}, 
+                                    {link: "http://myimages.com/myimage04.png"}, 
+                                ],
+                                projectType: "App",
+                                __v: 0
+                            },
+                            {
+                                _id: "000000000000000000000002",
+                                user: "000000000000000000000001",
+                                name: "project bike",
+                                content: "some project about a bike.",
+                                views: 0,
+                                images: [ 
+                                    {link: "http://myimages.com/myimage05.png"}
+                                ],
+                                projectType: "Desktop",
+                                __v: 0
+                            },
+                            {
+                                _id: "000000000000000000000003",
+                                user: "000000000000000000000001",
+                                name: "project table",
+                                content: "some project about a table.",
+                                views: 0,
+                                images: [ 
+                                    {link: "http://myimages.com/myimage06.png"}
+                                ],
+                                projectType: "Desktop",
+                                __v: 0
+                            },
+                            {
+                                _id: "000000000000000000000004",
+                                user: "000000000000000000000001",
+                                name: "project fruit",
+                                content: "some project about fruit.",
+                                views: 0,
+                                images: [ 
+                                    {link: "http://myimages.com/myimage03.png"}, 
+                                    {link: "http://myimages.com/myimage04.png"}, 
+                                ],
+                                projectType: "App",
+                                __v: 0
+                            },               
+                            {
+                                _id: "000000000000000000000006",
+                                user: "000000000000000000000001",
+                                name: "project fruit",
+                                content: "some project about fruit.",
+                                views: 0,
+                                images: [ 
+                                    {link: "http://myimages.com/myimage03.png"}, 
+                                    {link: "http://myimages.com/myimage04.png"}, 
+                                ],
+                                projectType: "App",
+                                __v: 0
+                            }
+                        ]
+                    };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
 

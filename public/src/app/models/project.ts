@@ -9,5 +9,7 @@ export class Project {
     content: string;
     views: number;
     projectType: string;
+    // url: string;
+    image: Image;
     images: Image[];
 }
