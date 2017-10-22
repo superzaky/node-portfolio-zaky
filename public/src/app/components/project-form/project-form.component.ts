@@ -34,11 +34,28 @@ export class ProjectFormComponent implements OnInit {
         private projectService: ProjectService) {
             console.log("contstr yay");
         route.params.subscribe(p => {
+            console.log("json stringfy  p  = "+JSON.stringify(p, null, 4));
             this.project.id = p['id'] || ""; 
         });
     }
-
+    
     ngOnInit() {
+        
+        if (this.project.id) {
+            this.projectService.getProject(this.project.id)
+            .subscribe(
+                v => {
+                    console.log("json stringfy  v  = "+JSON.stringify(v, null, 4));
+                    this.setProject(v);
+                // this.project = v
+            },
+            err => {
+                if (err.status == 404) {
+                    this.router.navigate(['/portfolio']);
+                    return;
+                }
+            });
+        }
 
     }
 
@@ -48,7 +65,7 @@ export class ProjectFormComponent implements OnInit {
         this.project.name = p.name;
         this.project.content = p.content;
         this.project.projectType = p.projectType;
-        this.project.images = p.images;
+        this.project.image.link = p.images[0].link;
     }
 
     submit() {        

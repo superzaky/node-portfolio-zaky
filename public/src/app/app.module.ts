@@ -45,6 +45,10 @@ const routes: Routes = [
         component: ProjectFormComponent,
     },
     {
+        path: 'projects/edit/:id', 
+        component: ProjectFormComponent,
+    },
+    {
         path: 'projects/:id', 
         component: ViewProjectComponent,
     }
