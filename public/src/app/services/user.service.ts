@@ -19,7 +19,7 @@ export class UserService extends UrlService {
         let data = { "username": user.username, "password": user.password };
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({ headers: headers, withCredentials: true });
 
         //Onderstaande regel kan je het beste debuggen als je de output wilt zien, omdat
         //de console na de post request geleegd wordt. Drm kan je de onderstaande output in een
@@ -30,19 +30,20 @@ export class UserService extends UrlService {
             .catch(this.handleError);
     }
     
-    logout() {
+    logout(user: User) {
+        let data = { "logout": user.logout };
+        let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        options.body = '';
+        let options = new RequestOptions({ headers: headers, withCredentials: true });
 
-        return this._http.get(this.hostURL + '/api/auth/logout', options)
+        return this._http.post(this.hostURL + '/api/auth/login', body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
     
     getSession() {
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({ headers: headers, withCredentials: true });
         options.body = '';
 
         return this._http.get(this.hostURL+'/api/auth/', options)

@@ -33,12 +33,10 @@ export class NavbarComponent {
     }
     
     logOut(){
-        this._userService.logout()
+        this.user.logout = true;
+        this._userService.logout(this.user)
             .subscribe(
                 res => {
-                    console.log("app logout ");
-                    //log the response which shows a session
-                    console.log(res); 
                     this.user = res;
                     var host = location.host;
                     //redirects where the page also gets refreshed

@@ -54,12 +54,14 @@ describe("A user logs in", function () {
     });
     
     it('should delete a SINGLE session on /api/auth/logout GET', function (done) {
-        //We check if a session is created by sending a GET request to /api/auth
         server
-                .get('/api/auth/logout')
+                .post('/api/auth/login')
+                .send({
+                    logout: true
+                })
                 .expect("Content-type", /json/)
                 .expect(200)
-                .end(function (err, res) {   
+                .end(function (err, res) {
                     var data = "Successfully logged out";
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
@@ -68,7 +70,6 @@ describe("A user logs in", function () {
     });
     
     it('should NOT display a SINGLE session on /api/auth/ GET', function (done) {
-        //We check if a session is created by sending a GET request to /api/auth
         server
                 .get('/api/auth/')
                 .expect("Content-type", /json/)
