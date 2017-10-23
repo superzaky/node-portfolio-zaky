@@ -42,7 +42,7 @@ export class ViewProjectComponent implements OnInit {
 
     delete() {
         if (confirm("Are you sure?")) {
-            this.projectService.delete(this.project.id)
+            this.projectService.delete(this.project._id)
                 .subscribe(x => {
                     this.router.navigate(['/portfolio']);
                 });
