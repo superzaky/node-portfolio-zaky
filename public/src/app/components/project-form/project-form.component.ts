@@ -14,7 +14,7 @@ export class ProjectFormComponent implements OnInit {
     models: any[];
     features: any[];
     project: Project = {
-        id: '',
+        _id: '',
         user: '',
         name: '',
         content: '',
@@ -35,14 +35,14 @@ export class ProjectFormComponent implements OnInit {
             console.log("contstr yay");
         route.params.subscribe(p => {
             console.log("json stringfy  p  = "+JSON.stringify(p, null, 4));
-            this.project.id = p['id'] || ""; 
+            this.project._id = p['id'] || ""; 
         });
     }
     
     ngOnInit() {
         
-        if (this.project.id) {
-            this.projectService.getProject(this.project.id)
+        if (this.project._id) {
+            this.projectService.getProject(this.project._id)
             .subscribe(
                 v => {
                     console.log("json stringfy  v  = "+JSON.stringify(v, null, 4));
@@ -60,7 +60,7 @@ export class ProjectFormComponent implements OnInit {
     }
 
     private setProject(p: Project) {
-        this.project.id = p.id;
+        this.project._id = p._id;
         this.project.user = p.user;
         this.project.name = p.name;
         this.project.content = p.content;
@@ -70,7 +70,7 @@ export class ProjectFormComponent implements OnInit {
 
     submit() {        
         this.project.images.push(this.project.image);
-        var result$ = (this.project.id) ? this.projectService.update(this.project) : this.projectService.create(this.project);
+        var result$ = (this.project._id) ? this.projectService.update(this.project) : this.projectService.create(this.project);
         result$.subscribe(project => {
             this.router.navigate(['/projects/', project._id])
         });

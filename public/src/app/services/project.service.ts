@@ -17,7 +17,7 @@ export class ProjectService extends UrlService {
     }
 
     update(project: Project) {
-        return this.http.put(this.projectsEndpoint + '/' + project.id, project)
+        return this.http.put(this.projectsEndpoint, project)
             .map(res => res.json());
     }
 

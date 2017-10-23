@@ -35,7 +35,7 @@ describe("A user updates a project", function () {
                 });
     });
 
-    it('should update a SINGLE project on /api/projects POST', function (done) {
+    it('should update a SINGLE project on /api/projects PUT', function (done) {
         //calling PROJECT api
         server
                 .put('/api/projects')

@@ -3,7 +3,7 @@ export interface Image {
 }
 
 export class Project {
-    id: string;
+    _id: string;
     user: string;
     name: string;
     content: string;

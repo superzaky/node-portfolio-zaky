@@ -118,10 +118,10 @@ router.delete('/projects/:id', function (req, res) {
 
 router.put('/projects', function (req, res) { 
 
-    if (!req.session.user || req.session.user === undefined) {
-        res.status(404).json('Session not found');
-        return;
-    }
+    // if (!req.session.user || req.session.user === undefined) {
+    //     res.status(404).json('Session not found');
+    //     return;
+    // }
     
     Project.findOne({_id: req.body._id}, function (err, currentProject) {
 
