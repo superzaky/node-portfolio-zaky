@@ -76,8 +76,8 @@ var data = {
                 {
                     _id: ObjectId("000000000000000000000004"),
                     user: "000000000000000000000001",
-                    name: "project fruit",
-                    content: "some project about fruit.",
+                    name: "project strawberry",
+                    content: "some project about strawberry.",
                     views: 0,
                     images: [ 
                         {link: "http://myimages.com/myimage03.png"}, 
@@ -106,8 +106,8 @@ var data = {
                 {
                     _id: ObjectId("000000000000000000000006"),
                     user: "000000000000000000000001",
-                    name: "project fruit",
-                    content: "some project about fruit.",
+                    name: "project apple",
+                    content: "some project about apple.",
                     views: 0,
                     images: [ 
                         {link: "http://myimages.com/myimage03.png"}, 

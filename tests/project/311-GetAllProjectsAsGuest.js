@@ -32,7 +32,7 @@ describe("A guest gets projects", function () {
                     done();
                 });
     });
-
+    
     it('should get a SINGLE project on /api/projects/ GET', function (done) {
         //calling PROJECT api
         server
@@ -40,8 +40,7 @@ describe("A guest gets projects", function () {
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    console.log("res " + res.body);
-                    
+                    // console.log("res stringfy  = " +JSON.stringify(res.body, null, 4));
                     var data = {
                         totalItems: 6,
                         items: [

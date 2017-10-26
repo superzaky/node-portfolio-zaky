@@ -25,7 +25,7 @@ describe("A user gets projects", function () {
                         _id: "000000000000000000000001",
                         name: "Jimmy Doe",
                         username: "jimmy",
-                        admin: false
+                        role: "admin"
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
@@ -40,8 +40,7 @@ describe("A user gets projects", function () {
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    console.log("res " + res.body);
-                    
+                    // console.log("res stringfy  = " +JSON.stringify(res.body, null, 4));
                     var data = {
                         totalItems: 6,
                         items: [
@@ -55,6 +54,9 @@ describe("A user gets projects", function () {
                                     {link: "http://myimages.com/myimage03.png"}, 
                                     {link: "http://myimages.com/myimage04.png"}, 
                                 ],
+                                roles: [
+                                    {name: "user"}
+                                ],
                                 projectType: "App",
                                 __v: 0
                             },
@@ -67,9 +69,30 @@ describe("A user gets projects", function () {
                                 images: [ 
                                     {link: "http://myimages.com/myimage05.png"}
                                 ],
+                                roles: [
+                                    {name: "user"},
+                                    {name: "guest"}
+                                ],
                                 projectType: "Desktop",
                                 __v: 0
                             },
+                            {
+                                _id: "000000000000000000000004",
+                                user: "000000000000000000000001",
+                                name: "project strawberry",
+                                content: "some project about strawberry.",
+                                views: 0,
+                                images: [ 
+                                    {link: "http://myimages.com/myimage03.png"}, 
+                                    {link: "http://myimages.com/myimage04.png"}, 
+                                ],
+                                roles: [
+                                    {name: "user"},
+                                    {name: "guest"}
+                                ],
+                                projectType: "App",
+                                __v: 0
+                            },               
                             {
                                 _id: "000000000000000000000003",
                                 user: "000000000000000000000001",
@@ -79,31 +102,39 @@ describe("A user gets projects", function () {
                                 images: [ 
                                     {link: "http://myimages.com/myimage06.png"}
                                 ],
+                                roles: [
+                                    {name: "user"}
+                                ],
                                 projectType: "Desktop",
                                 __v: 0
                             },
                             {
-                                _id: "000000000000000000000004",
+                                _id: "000000000000000000000005",
                                 user: "000000000000000000000001",
-                                name: "project fruit",
-                                content: "some project about fruit.",
+                                name: "project tv",
+                                content: "some project about tv.",
+                                views: 0,
+                                images: [ 
+                                    {link: "http://myimages.com/myimage12.png"}, 
+                                ],
+                                roles: [
+                                    {name: "user"}
+                                ],
+                                projectType: "App",
+                                __v: 0
+                            },
+                            {
+                                _id: "000000000000000000000006",
+                                user: "000000000000000000000001",
+                                name: "project apple",
+                                content: "some project about apple.",
                                 views: 0,
                                 images: [ 
                                     {link: "http://myimages.com/myimage03.png"}, 
                                     {link: "http://myimages.com/myimage04.png"}, 
                                 ],
-                                projectType: "App",
-                                __v: 0
-                            },               
-                            {
-                                _id: "000000000000000000000006",
-                                user: "000000000000000000000001",
-                                name: "project fruit",
-                                content: "some project about fruit.",
-                                views: 0,
-                                images: [ 
-                                    {link: "http://myimages.com/myimage03.png"}, 
-                                    {link: "http://myimages.com/myimage04.png"}, 
+                                roles: [
+                                    {name: "user"}
                                 ],
                                 projectType: "App",
                                 __v: 0
