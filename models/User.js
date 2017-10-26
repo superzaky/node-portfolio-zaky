@@ -8,7 +8,7 @@ var userSchema = new Schema({
     name: String,
     username: {type: String, unique: true},
     password: {type: String},
-    admin: Boolean,
+    role: String,
     created_at: Date,
     updated_at: Date
 });

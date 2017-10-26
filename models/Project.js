@@ -14,6 +14,12 @@ var projectSchema = new Schema({
             link: String
         }
     ],
+    roles: [
+        {   
+            _id : false, 
+            name: String
+        }
+    ],
     projectType: String,
     created_at: Date,
     updated_at: Date

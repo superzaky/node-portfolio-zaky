@@ -15,10 +15,10 @@ router.get('/', function (req, res) {
 });
 
 router.get('/projects', function (req, res) { 
-    // if (!req.session.user || req.session.user === undefined) {
-    //     res.status(404).json('Session not found');
-    //     return;
-    // }
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    }
 
     if(isNaN(req.query.pageSize) !== true) {
         
@@ -160,10 +160,13 @@ router.put('/projects', function (req, res) {
 });
 
 router.post('/projects', function (req, res) {
-    // if (!req.session.user || req.session.user === undefined) {
-    //     res.status(404).json('Session not found');
-    //     return;
-    // }
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    } else if (req.session.user.role !== "admin"){
+        res.status(401).json('No privileges');
+        return;
+    }
     
     var newProject = Project({
         user: req.body.user,
@@ -203,28 +206,4 @@ router.post('/projects', function (req, res) {
     });    
 });
 
-router.post('/login', function (req, res) {
-    User.findOne({username: req.body.username, password: sha1(req.body.password)}, function (err, user) {
-        
-        if (user !== null) {
-            var data = {
-                _id: user._id,
-                name: user.name,
-                username: user.username,
-                admin: user.admin
-            };
-            
-            req.session.user = data;
-            res.status(200).json(data);
-            return;
-        } else {
-            res.status(400).json("Invalid username or password");
-        }
-    });
-});
-
-router.get('/logout', function (req, res) {
-    req.session.destroy();
-    res.status(200).json("Successfully logged out");
-});
 module.exports = router;

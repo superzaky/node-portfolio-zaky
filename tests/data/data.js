@@ -11,7 +11,21 @@ var data = {
                     name: "Jimmy Doe",
                     username: "jimmy",
                     password: "open",
-                    admin: false
+                    role: "admin"
+                },
+                {
+                    _id: ObjectId("000000000000000000000002"),
+                    name: "Peter Parker",
+                    username: "peter",
+                    password: "open",
+                    role: "user"
+                },
+                {
+                    _id: ObjectId("000000000000000000000003"),
+                    name: "Tobi Naruto",
+                    username: "tobi",
+                    password: "open",
+                    role: "guest"
                 }
             ],
             Project: [
@@ -23,7 +37,10 @@ var data = {
                     views: 0,
                     images: [ 
                         {link: "http://myimages.com/myimage03.png"}, 
-                        {link: "http://myimages.com/myimage04.png"}, 
+                        {link: "http://myimages.com/myimage04.png"}
+                    ],
+                    roles: [
+                        {name: "user"}
                     ],
                     projectType: "App"
                 },
@@ -36,6 +53,10 @@ var data = {
                     images: [ 
                         {link: "http://myimages.com/myimage05.png"}
                     ],
+                    roles: [
+                        {name: "user"},
+                        {name: "guest"}
+                    ],
                     projectType: "Desktop"
                 },
                 {
@@ -47,6 +68,9 @@ var data = {
                     images: [ 
                         {link: "http://myimages.com/myimage06.png"}
                     ],
+                    roles: [
+                        {name: "user"}
+                    ],
                     projectType: "Desktop"
                 },
                 {
@@ -57,7 +81,11 @@ var data = {
                     views: 0,
                     images: [ 
                         {link: "http://myimages.com/myimage03.png"}, 
-                        {link: "http://myimages.com/myimage04.png"}, 
+                        {link: "http://myimages.com/myimage04.png"}
+                    ],
+                    roles: [
+                        {name: "user"},
+                        {name: "guest"}
                     ],
                     projectType: "App"
                 },
@@ -70,6 +98,9 @@ var data = {
                     images: [ 
                         {link: "http://myimages.com/myimage12.png"}, 
                     ],
+                    roles: [
+                        {name: "user"}
+                    ],
                     projectType: "App"
                 },                
                 {
@@ -80,7 +111,10 @@ var data = {
                     views: 0,
                     images: [ 
                         {link: "http://myimages.com/myimage03.png"}, 
-                        {link: "http://myimages.com/myimage04.png"}, 
+                        {link: "http://myimages.com/myimage04.png"}
+                    ],
+                    roles: [
+                        {name: "user"}
                     ],
                     projectType: "App"
                 }

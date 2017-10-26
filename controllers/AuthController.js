@@ -70,7 +70,7 @@ router.post('/login', function (req, res) {
                     _id: user._id,
                     name: user.name,
                     username: user.username,
-                    admin: user.admin
+                    role: user.role
                 };
                 
                 console.log("user gevonden");
