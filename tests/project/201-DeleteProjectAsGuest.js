@@ -17,17 +17,17 @@ describe("A user deletes a project", function () {
         server
                 .post('/api/auth/login')
                 .send({
-                    username: "jimmy",
+                    username: "tobi",
                     password: "open"
                 })
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
                     var data = {
-                        _id: "000000000000000000000001",
-                        name: "Jimmy Doe",
-                        username: "jimmy",
-                        role: "admin"
+                        _id: "000000000000000000000003",
+                        name: "Tobi Naruto",
+                        username: "tobi",
+                        role: "guest"
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
@@ -35,15 +35,15 @@ describe("A user deletes a project", function () {
                 });
     });
 
-    it('should delete a SINGLE project on /api/projects DELETE', function (done) {
+    it('should NOT delete a SINGLE project on /api/projects DELETE', function (done) {
         //calling PROJECT api
         server
                 .delete('/api/projects/000000000000000000000002')
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    var data = "Project is successfully deleted.";
-                    res.status.should.equal(200);
+                    var data = "No privileges";
+                    res.status.should.equal(401);
                     assert.deepEqual(res.body, data);
                     //TO DO: check if project is deleted in the database through using the ID to find the project
                     id = res.body._id;

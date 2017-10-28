@@ -119,10 +119,13 @@ router.get('/projects/:id', function (req, res) {
 });
 
 router.delete('/projects/:id', function (req, res) { 
-    // if (!req.session.user || req.session.user === undefined) {
-    //     res.status(404).json('Session not found');
-    //     return;
-    // }
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    } else if (req.session.user.role !== "admin"){
+        res.status(401).json('No privileges');
+        return;
+    }
 
     // get the project
     Project.findOne({ _id: req.params.id}, function(err, currentProject) {
@@ -144,10 +147,13 @@ router.delete('/projects/:id', function (req, res) {
 
 router.put('/projects', function (req, res) { 
 
-    // if (!req.session.user || req.session.user === undefined) {
-    //     res.status(404).json('Session not found');
-    //     return;
-    // }
+    if (!req.session.user || req.session.user === undefined) {
+        res.status(404).json('Session not found');
+        return;
+    } else if (req.session.user.role !== "admin"){
+        res.status(401).json('No privileges');
+        return;
+    }
     
     Project.findOne({_id: req.body._id}, function (err, currentProject) {
 
