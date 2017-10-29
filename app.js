@@ -52,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public/dist')));
 app.use('/', index);
 app.use('/api/auth', require('./controllers/AuthController'));
 app.use('/api', require('./controllers/ProjectsController'));
+app.use('/api', require('./controllers/UsersController'));
 app.use('/api/v1/', projects);
 
 //We use this to avoid the error: Cannot GET /login

@@ -32,7 +32,7 @@ router.post('/register', function (req, res) {
         username: req.body.username,
         password: req.body.password,
         confirm_password: req.body.confirm_password,
-        admin: false
+        role: "guest"
     });
     
     try {
@@ -49,7 +49,7 @@ router.post('/register', function (req, res) {
                 _id: newUser._id,
                 name: newUser.name,
                 username: newUser.username,
-                admin: newUser.admin
+                role: newUser.role
             };
             res.status(200).json(data);
         }

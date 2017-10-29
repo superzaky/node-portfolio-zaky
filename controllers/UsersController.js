@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 // grab the user model
 var User = require('../models/User');
-var Project = require('../models/Project');
 var sha1 = require('sha1');
 
 router.get('/projects', function (req, res) { 
@@ -191,7 +190,7 @@ router.put('/projects', function (req, res) {
     });
 });
 
-router.post('/projects', function (req, res) {
+router.post('/users', function (req, res) {
     if (!req.session.user || req.session.user === undefined) {
         res.status(404).json('Session not found');
         return;
@@ -200,25 +199,23 @@ router.post('/projects', function (req, res) {
         return;
     }
     
-    var newProject = Project({
-        user: req.body.user,
+    var newUser = User({
         name: req.body.name,
-        content: req.body.content,
-        images: req.body.images,
-        roles: req.body.roles,
-        projectType: req.body.projectType,
-        views: 0
+        username: req.body.username,
+        password: req.body.password,
+        confirm_password: req.body.confirm_password,
+        role: req.body.role,
     });
     
-    console.log("newProject =" + newProject);
+    console.log("newUser =" + newUser);
     try {
-        newProject.validateInput(req.body);
+        newUser.validateInput(req.body);
     } catch (err) {
         res.status(400).json(err);
         return;
     }
   
-    newProject.save(function (err, newProject) {
+    newUser.save(function (err, newUser) {
         if (err){
             console.log("error msg: ");
             console.log(err);
@@ -226,14 +223,10 @@ router.post('/projects', function (req, res) {
         } 
         else {
             var data = {
-                _id: newProject._id,
-                user: newProject.user,
-                name: newProject.name,
-                content: newProject.content,
-                views: 0,
-                images: newProject.images,
-                roles: newProject.roles,
-                projectType: newProject.projectType
+                _id: newUser._id,
+                name: newUser.name,
+                username: newUser.username,
+                role: newUser.role
             };
             res.status(200).json(data);
         }

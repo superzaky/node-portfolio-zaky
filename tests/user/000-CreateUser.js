@@ -9,8 +9,9 @@ var server = supertest.agent(app);
 // UNIT test begin
 var User = require('../../models/User');
 
-describe("An admin creates a project", function () {
+describe("An admin creates a user", function () {
     var id = "asd";
+
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
         server
@@ -33,23 +34,17 @@ describe("An admin creates a project", function () {
                     done();
                 });
     });
-    
-    it('should create a SINGLE project on /api/projects POST', function (done) {
-        //calling PROJECT api
+
+    it('should create a SINGLE user on /api/users POST', function (done) {
+        //calling USER api
         server
-                .post('/api/projects')
+                .post('/api/users')
                 .send({
-                    user: "000000000000000000000001", //id of the user
-                    name: "project cake",
-                    content: "some project about cakes.",
-                    images: [ 
-                        {link: "http://myimages.com/myimage01.png"}, 
-                        {link: "http://myimages.com/myimage02.png"}, 
-                    ],
-                    roles: [
-                        {name: "user"}
-                    ],
-                    projectType: "Web"
+                    name: "Kees Bergkamp",
+                    username: "kees",
+                    password: "open",
+                    confirm_password: "open",
+                    role: "guest"
                 })
                 .expect("Content-type", /json/)
                 .expect(200)
@@ -57,24 +52,20 @@ describe("An admin creates a project", function () {
                     //TO DO: compare created_at and updated_at
                     var data = {
                         _id: res.body._id, //the _id is dynamic because it's just created
-                        user: "000000000000000000000001",
-                        name: "project cake",
-                        content: "some project about cakes.",
-                        views: 0,
-                        images: [ 
-                            {link: "http://myimages.com/myimage01.png"}, 
-                            {link: "http://myimages.com/myimage02.png"}, 
-                        ],
-                        roles: [
-                            {name: "user"}
-                        ],
-                        projectType: "Web"
+                        name: "Kees Bergkamp",
+                        username: "kees",
+                        role: "guest"
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
-                    //TO DO: check if project is inserted in the database through using the ID to find the project
+                    //TO DO: check if user is inserted in the database through using the ID to find the user
                     id = res.body._id;
                     done();
                 });
+    });
+    User.find({username: "kees"}, function (err, users) {
+        if (err)
+            return console.error(err);
+        assert.equal(users.length, 1);
     });
 });

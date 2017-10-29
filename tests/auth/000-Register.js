@@ -29,7 +29,7 @@ describe("A user registers", function () {
                         _id: res.body._id, //the _id is dynamic because it's just created
                         name: "John Doe",
                         username: "john",
-                        admin: false
+                        role: "guest"
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
