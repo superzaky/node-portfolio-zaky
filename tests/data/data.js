@@ -26,6 +26,20 @@ var data = {
                     username: "tobi",
                     password: "open",
                     role: "guest"
+                },
+                {
+                    _id: ObjectId("000000000000000000000004"),
+                    name: "Rock Lee",
+                    username: "rock",
+                    password: "open",
+                    role: "guest"
+                },
+                {
+                    _id: ObjectId("000000000000000000000005"),
+                    name: "Gandalf",
+                    username: "gandalf",
+                    password: "open",
+                    role: "guest"
                 }
             ],
             Project: [

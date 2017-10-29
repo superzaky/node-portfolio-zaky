@@ -4,9 +4,12 @@ var router = express.Router();
 var User = require('../models/User');
 var sha1 = require('sha1');
 
-router.get('/projects', function (req, res) { 
+router.get('/users', function (req, res) { 
     if (!req.session.user || req.session.user === undefined) {
         res.status(404).json('Session not found');
+        return;
+    } else if (req.session.user.role !== "admin"){
+        res.status(401).json('No privileges');
         return;
     }
 
@@ -19,105 +22,81 @@ router.get('/projects', function (req, res) {
         var perPage = Number(req.query.pageSize);
         var result = perPage * page;
         
-        Project.find({})
+        User.find({})
         .limit(perPage)
         .skip(perPage * page)
-        .exec(function(err, currentProjects) {
+        .exec(function(err, currentUsers) {
             
-            if (currentProjects !== null) {
+            if (currentUsers !== null) {
                 if (err) console.log("een error " + error);
 
-                Project.count({}, function(err, count){
+                User.count({}, function(err, count){
                     var obj = {
                         totalItems: count,
-                        items: currentProjects
+                        items: currentUsers
                     }
                     // console.log("json stringfy  obj  = "+JSON.stringify(obj, null, 4));
                     res.status(200).json(obj);
                 });
             } else {
-                console.log("geen projecten gevonden");
-                res.status(400).json("No projects found.");
+                console.log("geen users gevonden");
+                res.status(400).json("No users found.");
             }
         });  
-    } else {
-        if (req.session.user.role !== "admin"){
-            //person is a user or guest.
-            Project.find({ roles : { name : req.session.user.role} }, function(err, currentProjects) {
-                if (currentProjects !== null) {
-                    if (err) console.log("een error " + err);
-                    
-                    Project.count({}, function(err, count){
-                        var obj = {
-                            totalItems: count,
-                            items: currentProjects
-                        }
-                        res.status(200).json(obj);
-                    });
-                    
-                } else {
-                    console.log("geen projecten gevonden");
-                    res.status(400).json("No projects found.");
-                }
-            });
-        } else {
-            //person is admin.
-            // get the projects
-            Project.find({}, function(err, currentProjects) {
-                if (currentProjects !== null) {
-                    if (err) console.log("een error " + err);
-                    
-                    Project.count({}, function(err, count){
-                        var obj = {
-                            totalItems: count,
-                            items: currentProjects
-                        }
-                        res.status(200).json(obj);
-                    });
-                    
-                } else {
-                    console.log("geen projecten gevonden");
-                    res.status(400).json("No projects found.");
-                }
-            });
-        }
+    } else {    
+        // get all the users
+        User.find({}, function(err, currentUsers) {
+            if (currentUsers !== null) {
+                if (err) console.log("een error " + err);
+                
+                User.count({}, function(err, count){
+                    var obj = {
+                        totalItems: count,
+                        items: currentUsers
+                    }
+                    res.status(200).json(obj);
+                });
+                
+            } else {
+                console.log("geen users gevonden");
+                res.status(400).json("No users found.");
+            }
+        });
+        
     }
 });
 
-router.get('/projects/:id', function (req, res) { 
+router.get('/users/:id', function (req, res) { 
     if (!req.session.user || req.session.user === undefined) {
             res.status(404).json('Session not found');
             return;
     }
 
     if (req.session.user.role !== "admin"){
-        // get the project
-        Project.findOne({ _id: req.params.id,  roles : { name : req.session.user.role} }, function(err, currentProject) {
-            if (currentProject !== null) {
-                if (err) console.log("een error " + err);
-    
-                res.status(200).json(currentProject);
-            } else {
-                console.log("project is niet gevonden");
-                res.status(400).json("Project doesn't exist. Or no privileges.");
-            }
-        });
+        res.status(401).json("No privileges.");
     } else {
-        // get the project
-        Project.findOne({ _id: req.params.id}, function(err, currentProject) {
-            if (currentProject !== null) {
+        // get the user
+        User.findOne({ _id: req.params.id}, function(err, currentUser) {
+            if (currentUser !== null) {
                 if (err) console.log("een error " + err);
-    
-                res.status(200).json(currentProject);
+                
+                var data = {
+                    _id: currentUser._id,
+                    name: currentUser.name,
+                    username: currentUser.username,
+                    role: currentUser.role
+                };
+
+                res.status(200).json(data);
             } else {
-                console.log("project is niet gevonden");
-                res.status(400).json("Project doesn't exist.");
+                console.log("user is niet gevonden");
+                res.status(400).json("User doesn't exist.");
             }
         });
     }
 });
 
-router.delete('/projects/:id', function (req, res) { 
+router.delete('/users/:id', function (req, res) { 
     if (!req.session.user || req.session.user === undefined) {
         res.status(404).json('Session not found');
         return;
@@ -126,25 +105,25 @@ router.delete('/projects/:id', function (req, res) {
         return;
     }
 
-    // get the project
-    Project.findOne({ _id: req.params.id}, function(err, currentProject) {
-        if (currentProject !== null) {
+    // get the user
+    User.findOne({ _id: req.params.id}, function(err, currentUser) {
+        if (currentUser !== null) {
             if (err) console.log("een error " + error);
         
-            // delete project
-            currentProject.remove(function(err) {
+            // delete user
+            currentUser.remove(function(err) {
                 if (err) throw err;
         
-                res.status(200).json("Project is successfully deleted.");
+                res.status(200).json("User is successfully deleted.");
             });
         } else {
-            console.log("project is niet gevonden");
-            res.status(400).json("Project doesn't exist.");
+            console.log("user is niet gevonden");
+            res.status(400).json("User doesn't exist.");
         }
     });
 });
 
-router.put('/projects', function (req, res) { 
+router.put('/users', function (req, res) { 
 
     if (!req.session.user || req.session.user === undefined) {
         res.status(404).json('Session not found');
@@ -154,18 +133,18 @@ router.put('/projects', function (req, res) {
         return;
     }
     
-    Project.findOne({_id: req.body._id}, function (err, currentProject) {
+    User.findOne({_id: req.body._id}, function (err, currentUser) {
 
-        if (currentProject !== null) {
+        if (currentUser !== null) {
             // Update each attribute with any possible attribute that may have been submitted in the body of the request
             // If that attribute isn't in the request body, default back to whatever it was before.
-            currentProject.user = req.body.user || currentProject.user;
-            currentProject.name = req.body.name || currentProject.name;
-            currentProject.content = req.body.content || currentProject.content;
-            currentProject.images = req.body.images || currentProject.images;
-            currentProject.projectType = req.body.projectType || currentProject.projectType;
+            currentUser.name = req.body.name || currentUser.name;
+            currentUser.username = req.body.username || currentUser.username;
+            currentUser.password = req.body.password || currentUser.password;
+            currentUser.confirm_password = req.body.confirm_password || currentUser.confirm_password;
+            currentUser.role = req.body.role || currentUser.role;
 
-            currentProject.save(function (err, updatedProject) {
+            currentUser.save(function (err, updatedUser) {
                 if (err){
                     console.log("error msg: ");
                     console.log(err);
@@ -173,19 +152,16 @@ router.put('/projects', function (req, res) {
                 } 
                 else {
                     var data = {
-                        _id: updatedProject._id,
-                        user: updatedProject.user,
-                        name: updatedProject.name,
-                        content: updatedProject.content,
-                        views: updatedProject.views,
-                        images: updatedProject.images,
-                        projectType: updatedProject.projectType
+                        _id: updatedUser._id,
+                        name: updatedUser.name,
+                        username: updatedUser.username,
+                        role: updatedUser.role
                     };
                     res.status(200).json(data);
                 }
             }); 
         } else {
-            res.status(400).json("Project doesn't exist.");
+            res.status(400).json("User doesn't exist.");
         }
     });
 });
