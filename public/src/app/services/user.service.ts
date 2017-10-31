@@ -43,12 +43,25 @@ export class UserService extends UrlService {
     
     getSession() {
         let headers = new Headers({ 'Content-Type': 'application/json' });
+        headers = this.addJwt(headers);
+
         let options = new RequestOptions({ headers: headers, withCredentials: true });
         options.body = '';
 
         return this._http.get(this.hostURL+'/api/auth/', options)
             .map(this.extractData)
             .catch(this.handleError);
+    }
+
+    // private helper methods
+    private addJwt(headers?: Headers): Headers { //<--- :Headers is een function type en het geeft aan dat hij een Headers variabel gaat returnen.
+        // add authorization header with jwt token
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+            headers.append('Authorization', 'Bearer ' + currentUser.token);
+        }
+
+        return headers;
     }
     
     private handleError(error: any) {

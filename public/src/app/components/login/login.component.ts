@@ -23,7 +23,11 @@ export class LoginComponent {
             .subscribe(
                 //we are using an arrow function here
                 res => {            
-                    console.log("succesvol ingelogd " + res.username);
+                    if (res && res.token) {
+                        // store user details (which resides in res variable) and jwt token in local storage to keep user logged in between page refreshes
+                        localStorage.setItem('currentUser', JSON.stringify(res));
+                    }
+
 //                  I don't use navigate(), because I want a redirect where the page gets refreshed
 //                  this.router.navigate(['/']); 
                     var host = location.host;

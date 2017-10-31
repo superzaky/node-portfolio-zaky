@@ -10,6 +10,7 @@ var server = supertest.agent(app);
 // UNIT test begin
 
 describe("A user logs in", function () {
+    var token = "";
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
         server
@@ -21,12 +22,15 @@ describe("A user logs in", function () {
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
+                    console.log("json stringfy res body TESTs = "+JSON.stringify(res.body, null, 4));
                     var data = {
                         _id: "000000000000000000000001",
                         name: "Jimmy Doe",
                         username: "jimmy",
-                        admin: false
+                        role: "admin",
+                        token: res.body.token
                     };
+                    token = res.body.token;
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
                     done();
@@ -36,8 +40,10 @@ describe("A user logs in", function () {
 
     it('should display a SINGLE session on /api/auth/ GET', function (done) {
         //We check if a session is created by sending a GET request to /api/auth
+        // console.log("json stringfy res token TESTs = "+JSON.stringify(token, null, 4));
         server
                 .get('/api/auth/')
+                .set('Authorization', 'Bearer ' + token)
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
@@ -45,7 +51,8 @@ describe("A user logs in", function () {
                         _id: "000000000000000000000001",
                         name: "Jimmy Doe",
                         username: "jimmy",
-                        admin: false
+                        role: "admin",
+                        token: res.body.token
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
@@ -72,6 +79,7 @@ describe("A user logs in", function () {
     it('should NOT display a SINGLE session on /api/auth/ GET', function (done) {
         server
                 .get('/api/auth/')
+                .set('Authorization', 'Bearer ' + token)
                 .expect("Content-type", /json/)
                 .expect(404)
                 .end(function (err, res) {

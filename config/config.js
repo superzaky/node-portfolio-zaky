@@ -1,7 +1,8 @@
 var config = {
     // Database (MongoDB) configurations
     development: {
-        path: 'mongodb://localhost/portfolio-zaky'
+        path: 'mongodb://localhost/portfolio-zaky',
+        secret: 'secret123'
     },
     test: {
         path: 'mongodb://localhost/portfolio-zaky-test'

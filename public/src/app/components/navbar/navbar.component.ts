@@ -34,6 +34,8 @@ export class NavbarComponent {
     
     logOut(){
         this.user.logout = true;
+        // remove user from local storage to log user out
+        localStorage.removeItem('currentUser');
         this._userService.logout(this.user)
             .subscribe(
                 res => {

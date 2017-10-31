@@ -3,10 +3,32 @@ var router = express.Router();
 // grab the user model
 var User = require('../models/User');
 var sha1 = require('sha1');
+var config = require('../config/config');
+var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
 router.get('/', function (req, res) {
-    console.log("get session ctrl");
-    console.log("json stringfy get session user  = "+JSON.stringify(req.session.user, null, 4));
+    if (!req.headers.authorization || req.headers.authorization === undefined) {
+        res.status(404).json('Token not found');
+        return;
+    }
+
+    console.log("json stringfy get req.headers.authorization.split(' ')[1] = "+JSON.stringify(req.headers.authorization.split(' ')[1], null, 4));
+    var token = req.headers.authorization.split(' ')[1];
+    jwt.verify(token, config.development.secret, function(err, decoded) {
+        // console.log("json stringfy token decoded = "+JSON.stringify(decoded, null, 4));
+        if (err) {
+          /*
+            err = {
+              name: 'TokenExpiredError',
+              message: 'jwt expired',
+              expiredAt: 1408621000
+            }
+          */
+          console.log("json stringfy token ERROR = "+JSON.stringify(err, null, 4));
+          res.status(400).json('Token expired');
+        }
+    });
+
     if (!req.session.user || req.session.user === undefined) {
         console.log("geen sessie ..");
         
@@ -66,16 +88,30 @@ router.post('/login', function (req, res) {
         User.findOne({username: req.body.username, password: sha1(req.body.password)}, function (err, user) {
             console.log("user check");
             if (user !== null) {
-                var data = {
+                
+                console.log("json stringfy  secret  = "+JSON.stringify(config.development.secret, null, 4));
+                //sub staat voor subject waarschijnlijk
+                var sub = {
                     _id: user._id,
                     name: user.name,
                     username: user.username,
                     role: user.role
                 };
+                var token = jwt.sign( {sub: sub}, config.development.secret, {
+                    expiresIn: 86400 // expires in 24 hours
+                });
+                // console.log("json stringfy  token  = "+JSON.stringify(token, null, 4));
+
+                var data = {
+                    _id: user._id,
+                    name: user.name,
+                    username: user.username,
+                    role: user.role,
+                    token: token
+                };
                 
-                console.log("user gevonden");
                 req.session.user = data;
-                console.log("json stringfy  login user  = "+JSON.stringify(req.session.user, null, 4));
+                // console.log("json stringfy  login user  = "+JSON.stringify(req.session.user, null, 4));
                 res.status(200).json(data);
                 return;
             } else {
