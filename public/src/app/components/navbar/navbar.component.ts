@@ -21,7 +21,7 @@ export class NavbarComponent {
                 res => {
                     console.log("app session ");
                     //log the response which shows a session
-                    console.log(res); 
+                    console.log("JSON.stringify res = "+JSON.stringify(res, null, 4));
                     this.user = res;
                 },
                 error => {

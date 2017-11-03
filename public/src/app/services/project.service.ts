@@ -1,7 +1,7 @@
 import { UrlService } from './url.service';
 import { Project } from './../models/project';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 @Injectable()
 export class ProjectService extends UrlService {
@@ -22,7 +22,12 @@ export class ProjectService extends UrlService {
     }
 
     getProjects(filter) {
-        return this.http.get(this.projectsEndpoint + '?' + this.toQueryString(filter))
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        headers = this.addJwt(headers);
+        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        options.body = '';
+
+        return this.http.get(this.projectsEndpoint + '?' + this.toQueryString(filter), options)
         .map(res => res.json());
     }
     

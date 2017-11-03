@@ -52,17 +52,6 @@ export class UserService extends UrlService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
-    // private helper methods
-    private addJwt(headers?: Headers): Headers { //<--- :Headers is een function type en het geeft aan dat hij een Headers variabel gaat returnen.
-        // add authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            headers.append('Authorization', 'Bearer ' + currentUser.token);
-        }
-
-        return headers;
-    }
     
     private handleError(error: any) {
         //the Observable catches and throws an error

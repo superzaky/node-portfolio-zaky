@@ -9,24 +9,24 @@ var server = supertest.agent(app);
 // UNIT test begin
 var User = require('../../models/User');
 
-describe("A user gets projects", function () {
+describe("A guest gets projects", function () {
     var token = "";
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
         server
                 .post('/api/auth/login')
                 .send({
-                    username: "jimmy",
+                    username: "tobi",
                     password: "open"
                 })
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
                     var data = {
-                        _id: "000000000000000000000001",
-                        name: "Jimmy Doe",
-                        username: "jimmy",
-                        role: "admin",
+                        _id: "000000000000000000000003",
+                        name: "Tobi Naruto",
+                        username: "tobi",
+                        role: "guest",
                         token: res.body.token
                     };
                     token = res.body.token;
@@ -36,7 +36,7 @@ describe("A user gets projects", function () {
                 });
     });
 
-    it('should get 3 projects on page 1 at /api/projects?page=1&pageSize=3 GET', function (done) {
+    it('should get 1 project on page 1 at /api/projects?page=1&pageSize=3 GET', function (done) {
         //calling PROJECT api
         server
                 .get('/api/projects?page=1&pageSize=3')
@@ -50,19 +50,6 @@ describe("A user gets projects", function () {
                         totalItems: 6,
                         items:  [
                             {
-                                _id: "000000000000000000000001",
-                                user: "000000000000000000000001",
-                                name: "project fruit",
-                                content: "some project about fruit.",
-                                views: 0,
-                                images: [ 
-                                    {link: "http://myimages.com/myimage03.png"}, 
-                                    {link: "http://myimages.com/myimage04.png"}, 
-                                ],
-                                projectType: "App",
-                                __v: 0
-                            },
-                            {
                                 _id: "000000000000000000000002",
                                 user: "000000000000000000000001",
                                 name: "project bike",
@@ -71,19 +58,28 @@ describe("A user gets projects", function () {
                                 images: [ 
                                     {link: "http://myimages.com/myimage05.png"}
                                 ],
+                                roles: [
+                                    {name: "user"},
+                                    {name: "guest"}
+                                ],
                                 projectType: "Desktop",
                                 __v: 0
                             },
                             {
-                                _id: "000000000000000000000003",
+                                _id: "000000000000000000000004",
                                 user: "000000000000000000000001",
-                                name: "project table",
-                                content: "some project about a table.",
+                                name: "project strawberry",
+                                content: "some project about strawberry.",
                                 views: 0,
                                 images: [ 
-                                    {link: "http://myimages.com/myimage06.png"}
+                                    {link: "http://myimages.com/myimage03.png"}, 
+                                    {link: "http://myimages.com/myimage04.png"}
                                 ],
-                                projectType: "Desktop",
+                                roles: [
+                                    {name: "user"},
+                                    {name: "guest"}
+                                ],
+                                projectType: "App",
                                 __v: 0
                             }
                         ]

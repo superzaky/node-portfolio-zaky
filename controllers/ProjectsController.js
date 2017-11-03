@@ -4,12 +4,32 @@ var router = express.Router();
 var User = require('../models/User');
 var Project = require('../models/Project');
 var sha1 = require('sha1');
+var config = require('../config/config');
+var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
 router.get('/projects', function (req, res) { 
-    if (!req.session.user || req.session.user === undefined) {
-        res.status(404).json('Session not found');
+    if (!req.headers.authorization || req.headers.authorization === undefined) {
+        res.status(404).json('Token not found');
         return;
     }
+
+    var token = req.headers.authorization.split(' ')[1];
+    var user = "";
+    jwt.verify(token, config.development.secret, function(err, decoded) {
+        // console.log("!!!!json stringfy token decoded = "+JSON.stringify(decoded, null, 4));
+        user = decoded.sub;
+        if (err) {
+          /*
+            err = {
+              name: 'TokenExpiredError',
+              message: 'jwt expired',
+              expiredAt: 1408621000
+            }
+          */
+          console.log("json stringfy token ERROR = "+JSON.stringify(err, null, 4));
+          res.status(400).json('Token expired');
+        }
+    });
 
     if(isNaN(req.query.pageSize) !== true) {  
         var page = 0;
@@ -19,32 +39,58 @@ router.get('/projects', function (req, res) {
         
         var perPage = Number(req.query.pageSize);
         var result = perPage * page;
-        
-        Project.find({})
-        .limit(perPage)
-        .skip(perPage * page)
-        .exec(function(err, currentProjects) {
-            
-            if (currentProjects !== null) {
-                if (err) console.log("een error " + error);
 
-                Project.count({}, function(err, count){
-                    var obj = {
-                        totalItems: count,
-                        items: currentProjects
-                    }
-                    // console.log("json stringfy  obj  = "+JSON.stringify(obj, null, 4));
-                    res.status(200).json(obj);
-                });
-            } else {
-                console.log("geen projecten gevonden");
-                res.status(400).json("No projects found.");
-            }
-        });  
-    } else {
-        if (req.session.user.role !== "admin"){
+        if (user.role !== "admin"){
             //person is a user or guest.
-            Project.find({ roles : { name : req.session.user.role} }, function(err, currentProjects) {
+            Project.find({ roles : { name : user.role} })
+            .limit(perPage)
+            .skip(perPage * page)
+            .exec(function(err, currentProjects) {
+                
+                if (currentProjects !== null) {
+                    if (err) console.log("een error " + error);
+    
+                    Project.count({}, function(err, count){
+                        var obj = {
+                            totalItems: count,
+                            items: currentProjects
+                        }
+                        // console.log("json stringfy obj  = "+JSON.stringify(obj, null, 4));
+                        res.status(200).json(obj);
+                    });
+                } else {
+                    console.log("geen projecten gevonden");
+                    res.status(400).json("No projects found.");
+                }
+            }); 
+        } else {
+            //Person is admin. get the projects.
+            Project.find({})
+            .limit(perPage)
+            .skip(perPage * page)
+            .exec(function(err, currentProjects) {
+                
+                if (currentProjects !== null) {
+                    if (err) console.log("een error " + error);
+    
+                    Project.count({}, function(err, count){
+                        var obj = {
+                            totalItems: count,
+                            items: currentProjects
+                        }
+                        // console.log("json stringfy  obj  = "+JSON.stringify(obj, null, 4));
+                        res.status(200).json(obj);
+                    });
+                } else {
+                    console.log("geen projecten gevonden");
+                    res.status(400).json("No projects found.");
+                }
+            });  
+        }
+    } else {
+        if (user.role !== "admin"){
+            //person is a user or guest.
+            Project.find({ roles : { name : user.role} }, function(err, currentProjects) {
                 if (currentProjects !== null) {
                     if (err) console.log("een error " + err);
                     
