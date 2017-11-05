@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from './../../services/project.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
-import 'rxjs/add/Observable/forkJoin';
-import { Project } from "../../models/Project";
+//import 'rxjs/add/Observable/forkJoin';
+import { Project } from "../../models/project";
 
 @Component({
     templateUrl: './project-form.component.html',
