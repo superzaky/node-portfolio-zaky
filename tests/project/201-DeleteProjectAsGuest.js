@@ -11,7 +11,8 @@ var User = require('../../models/User');
 
 describe("A user deletes a project", function () {
     var id = "asd";
-
+    var token = "";
+    
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
         server
@@ -27,8 +28,10 @@ describe("A user deletes a project", function () {
                         _id: "000000000000000000000003",
                         name: "Tobi Naruto",
                         username: "tobi",
-                        role: "guest"
+                        role: "guest",
+                        token: res.body.token
                     };
+                    token = res.body.token;
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
                     done();
@@ -39,6 +42,7 @@ describe("A user deletes a project", function () {
         //calling PROJECT api
         server
                 .delete('/api/projects/000000000000000000000002')
+                .set('Authorization', 'Bearer ' + token)
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {

@@ -132,12 +132,22 @@ router.get('/projects', function (req, res) {
 });
 
 router.get('/projects/:id', function (req, res) { 
-    if (!req.session.user || req.session.user === undefined) {
-            res.status(404).json('Session not found');
-            return;
+    if (!req.headers.authorization || req.headers.authorization === undefined) {
+        res.status(404).json('Token not found');
+        return;
     }
+    
+    var token = req.headers.authorization.split(' ')[1];
+    var user = "";
+    jwt.verify(token, config.development.secret, function(err, decoded) {
+        user = decoded.sub;
+        if (err) {
+            console.log("json stringfy token ERROR = "+JSON.stringify(err, null, 4));
+            res.status(400).json('Token expired');
+        }
+    });
 
-    if (req.session.user.role !== "admin"){
+    if (user.role !== "admin"){
         // get the project
         Project.findOne({ _id: req.params.id,  roles : { name : req.session.user.role} }, function(err, currentProject) {
             if (currentProject !== null) {
@@ -165,10 +175,22 @@ router.get('/projects/:id', function (req, res) {
 });
 
 router.delete('/projects/:id', function (req, res) { 
-    if (!req.session.user || req.session.user === undefined) {
-        res.status(404).json('Session not found');
+    if (!req.headers.authorization || req.headers.authorization === undefined) {
+        res.status(404).json('Token not found');
         return;
-    } else if (req.session.user.role !== "admin"){
+    }
+    
+    var token = req.headers.authorization.split(' ')[1];
+    var user = "";
+    jwt.verify(token, config.development.secret, function(err, decoded) {
+        user = decoded.sub;
+        if (err) {
+            console.log("json stringfy token ERROR = "+JSON.stringify(err, null, 4));
+            res.status(400).json('Token expired');
+        }
+    });
+    
+    if (user.role !== "admin"){
         res.status(401).json('No privileges');
         return;
     }
@@ -192,11 +214,22 @@ router.delete('/projects/:id', function (req, res) {
 });
 
 router.put('/projects', function (req, res) { 
-
-    if (!req.session.user || req.session.user === undefined) {
-        res.status(404).json('Session not found');
+    if (!req.headers.authorization || req.headers.authorization === undefined) {
+        res.status(404).json('Token not found');
         return;
-    } else if (req.session.user.role !== "admin"){
+    }
+    
+    var token = req.headers.authorization.split(' ')[1];
+    var user = "";
+    jwt.verify(token, config.development.secret, function(err, decoded) {
+        user = decoded.sub;
+        if (err) {
+            console.log("json stringfy token ERROR = "+JSON.stringify(err, null, 4));
+            res.status(400).json('Token expired');
+        }
+    });
+    
+    if (user.role !== "admin"){
         res.status(401).json('No privileges');
         return;
     }
@@ -238,14 +271,26 @@ router.put('/projects', function (req, res) {
 });
 
 router.post('/projects', function (req, res) {
-    if (!req.session.user || req.session.user === undefined) {
-        res.status(404).json('Session not found');
-        return;
-    } else if (req.session.user.role !== "admin"){
-        res.status(401).json('No privileges');
+    if (!req.headers.authorization || req.headers.authorization === undefined) {
+        res.status(404).json('Token not found');
         return;
     }
     
+    var token = req.headers.authorization.split(' ')[1];
+    var user = "";
+    jwt.verify(token, config.development.secret, function(err, decoded) {
+        user = decoded.sub;
+        if (err) {
+            console.log("json stringfy token ERROR = "+JSON.stringify(err, null, 4));
+            res.status(400).json('Token expired');
+        }
+    });
+    
+    if (user.role !== "admin"){
+        res.status(401).json('No privileges');
+        return;
+    }
+
     var newProject = Project({
         user: req.body.user,
         name: req.body.name,

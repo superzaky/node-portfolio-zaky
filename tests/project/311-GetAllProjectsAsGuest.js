@@ -10,6 +10,7 @@ var server = supertest.agent(app);
 var User = require('../../models/User');
 
 describe("A guest gets projects", function () {
+    var token = "";
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
         server
@@ -25,8 +26,10 @@ describe("A guest gets projects", function () {
                         _id: "000000000000000000000003",
                         name: "Tobi Naruto",
                         username: "tobi",
-                        role: "guest"
+                        role: "guest",
+                        token: res.body.token
                     };
+                    token = res.body.token;
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
                     done();
@@ -37,6 +40,7 @@ describe("A guest gets projects", function () {
         //calling PROJECT api
         server
                 .get('/api/projects')
+                .set('Authorization', 'Bearer ' + token)
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
@@ -63,8 +67,8 @@ describe("A guest gets projects", function () {
                             {
                                 _id: "000000000000000000000004",
                                 user: "000000000000000000000001",
-                                name: "project fruit",
-                                content: "some project about fruit.",
+                                name: "project strawberry",
+                                content: "some project about strawberry.",
                                 views: 0,
                                 images: [ 
                                     {link: "http://myimages.com/myimage03.png"}, 

@@ -59,6 +59,9 @@ describe("A user gets projects", function () {
                                     {link: "http://myimages.com/myimage03.png"}, 
                                     {link: "http://myimages.com/myimage04.png"}, 
                                 ],
+                                roles: [
+                                    {name: "user"}
+                                ],
                                 projectType: "App",
                                 __v: 0
                             },
@@ -71,6 +74,10 @@ describe("A user gets projects", function () {
                                 images: [ 
                                     {link: "http://myimages.com/myimage05.png"}
                                 ],
+                                roles: [
+                                    {name: "user"},
+                                    {name: "guest"}
+                                ],
                                 projectType: "Desktop",
                                 __v: 0
                             },
@@ -82,6 +89,9 @@ describe("A user gets projects", function () {
                                 views: 0,
                                 images: [ 
                                     {link: "http://myimages.com/myimage06.png"}
+                                ],
+                                roles: [
+                                    {name: "user"}
                                 ],
                                 projectType: "Desktop",
                                 __v: 0

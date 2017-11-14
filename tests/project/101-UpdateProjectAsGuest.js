@@ -9,10 +9,11 @@ var server = supertest.agent(app);
 // UNIT test begin
 var User = require('../../models/User');
 
-describe("A user updates a project", function () {
+describe("A guest updates a project", function () {
     var id = "asd";
+    var token = "";
 
-    it('should create a SINGLE session on /api/auth/login UPDATE', function (done) {
+    it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
         server
                 .post('/api/auth/login')
@@ -27,8 +28,10 @@ describe("A user updates a project", function () {
                         _id: "000000000000000000000003",
                         name: "Tobi Naruto",
                         username: "tobi",
-                        role: "guest"
+                        role: "guest",
+                        token: res.body.token
                     };
+                    token = res.body.token;
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
                     done();
@@ -39,6 +42,7 @@ describe("A user updates a project", function () {
         //calling PROJECT api
         server
                 .put('/api/projects')
+                .set('Authorization', 'Bearer ' + token)
                 .send({
                     _id: "000000000000000000000001", //id of the project
                     user: "000000000000000000000001", //id of the user

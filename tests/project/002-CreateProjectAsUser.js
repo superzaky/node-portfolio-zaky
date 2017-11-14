@@ -11,6 +11,7 @@ var User = require('../../models/User');
 
 describe("A user creates a project", function () {
     var id = "asd";
+    var token = "";
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
         server
@@ -26,8 +27,10 @@ describe("A user creates a project", function () {
                         _id: "000000000000000000000002",
                         name: "Peter Parker",
                         username: "peter",
-                        role: "user"
+                        role: "user",
+                        token: res.body.token
                     };
+                    token = res.body.token;
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
                     done();
@@ -38,6 +41,7 @@ describe("A user creates a project", function () {
         //calling PROJECT api
         server
                 .post('/api/projects')
+                .set('Authorization', 'Bearer ' + token)
                 .send({
                     user: "000000000000000000000002", //id of the user
                     name: "project spiderman",
