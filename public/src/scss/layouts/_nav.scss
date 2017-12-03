@@ -4,10 +4,11 @@
     margin:auto;
     @include add-border(1px, #e7e7e7, 'right-left');
     border-color:#e7e7e7;
-    min-height:60px;
+    min-height:64px;
     background:#fff;
     margin-bottom:30px;
-
+    border-bottom: 0px;
+    
     a{
         color:$primary-color !important;
         font-size:20px;
@@ -22,3 +23,8 @@
     background:$primary-color !important;
     color:#fff !important;
 }
+
+.navbar-brand {
+    margin-top: -19px;;
+}
+

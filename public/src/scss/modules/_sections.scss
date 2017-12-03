@@ -4,11 +4,10 @@ section{
 }
 
 .section-showcase{
-    height:$showcase-height;
     background: linear-gradient(90deg, $primary-color, $secondary-color);
 
     .showcase-content{
-        padding:110px 15px;
+        padding:110px 15px 0px 15px;
         text-align:center;
     }
 
@@ -76,4 +75,48 @@ section{
         background-size: 30px 60px;
         transform: rotateX(180deg);
     }
+}
+
+@media only screen and (min-width: 992px) {
+    .svg-container { 
+        display: inline-block;
+        position: relative;
+        width: 30%;
+        min-width: 30%;
+        padding-bottom: 1%; 
+        vertical-align: middle; 
+        overflow: hidden; 
+    }
+}
+
+
+@media only screen and (min-width: 468px) {
+    /* For tablets: */
+    .svg-container { 
+        display: inline-block;
+        position: relative;
+        width: 30%;
+        padding-bottom: 1%; 
+        vertical-align: middle; 
+        overflow: hidden; 
+    }
+}
+
+@media only screen and (max-width: 468px) {
+    /* For mobile phones: */
+    .svg-container { 
+        display: inline-block;
+        position: relative;
+        width: 70%;
+        padding-bottom: 1%; 
+        vertical-align: middle; 
+        overflow: hidden; 
+    }
+}
+
+.svg-content { 
+	display: inline-block;
+	position: relative;
+	top: 0;
+	left: 0;
 }
