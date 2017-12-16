@@ -12,19 +12,21 @@ export class ProjectService extends UrlService {
     }
 
     create(project) {
-        return this.http.post(this.projectsEndpoint, project)
+        let options = this.addJwt();
+
+        return this.http.post(this.projectsEndpoint, project, options)
             .map(res => res.json());
     }
 
     update(project: Project) {
-        return this.http.put(this.projectsEndpoint, project)
+        let options = this.addJwt();
+
+        return this.http.put(this.projectsEndpoint, project, options)
             .map(res => res.json());
     }
 
     getProjects(filter) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers = this.addJwt(headers);
-        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        let options = this.addJwt();
         options.body = '';
 
         return this.http.get(this.projectsEndpoint + '?' + this.toQueryString(filter), options)
@@ -32,12 +34,18 @@ export class ProjectService extends UrlService {
     }
     
     getProject(id) {
-        return this.http.get(this.projectsEndpoint + '/' + id)
+        let options = this.addJwt();
+        options.body = '';
+
+        return this.http.get(this.projectsEndpoint + '/' + id, options)
         .map(res => this.extractData(res));
     }
 
     delete(id) {
-        return this.http.delete(this.projectsEndpoint + '/' + id)
+        let options = this.addJwt();
+        options.body = '';
+        
+        return this.http.delete(this.projectsEndpoint + '/' + id, options)
             .map(res => res.json());
     }
 

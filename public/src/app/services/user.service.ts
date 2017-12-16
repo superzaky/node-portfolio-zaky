@@ -42,10 +42,7 @@ export class UserService extends UrlService {
     }
     
     getSession() {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers = this.addJwt(headers);
-
-        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        let options = this.addJwt();
         options.body = '';
 
         return this._http.get(this.hostURL+'/api/auth/', options)

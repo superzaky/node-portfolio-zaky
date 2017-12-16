@@ -37,4 +37,19 @@ export class PortfolioComponent {
         this.query.page = page;
         this.populateProjects();
     }
+
+    removeHTMLTags(content: string)
+    {  
+        if (content) {
+            //Content without HTML tags
+            content = content.replace(/<\/?[^>]+>/gi, "");
+            //Content trimmed to 6 characters
+            content = content.substring(0, Math.min(50));
+
+            return content;
+        }
+    
+    }
+    
+    
 }
