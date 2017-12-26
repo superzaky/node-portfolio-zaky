@@ -2,6 +2,10 @@ export interface Image {
     link: string;
 }
 
+export interface Role {
+    name: string;
+}
+
 export class Project {
     _id: string;
     user: string;
@@ -12,4 +16,6 @@ export class Project {
     // url: string;
     image: Image;
     images: Image[];
+    roles: Role[];
+    availableRoles: Role[];
 }

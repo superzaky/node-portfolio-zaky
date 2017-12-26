@@ -23,7 +23,12 @@ export class ProjectFormComponent implements OnInit {
         image: {
             link: ''
         },
-        images: []
+        images: [],
+        availableRoles: [
+            {name: "user"},
+            {name: "guest"}
+        ],
+        roles: []
     };
 
     constructor(
@@ -59,6 +64,30 @@ export class ProjectFormComponent implements OnInit {
 
     }
 
+    onRoleToggle(roleObj, $event) {
+        if ($event.target.checked) {
+            this.project.roles.push(roleObj);
+            // console.log("this.project.roles after push = "+JSON.stringify(this.project.roles, null, 4)); 
+
+        }
+        else {
+            var index = this.project.roles.indexOf(roleObj);
+            //with the splice() method we remove 1 role object through index
+            this.project.roles.splice(index, 1);
+        }
+    }
+
+    arr_diff(availableRoles, currentRoles) { 
+        for (var i = 0; i < currentRoles.length; i++) {
+            for (var j = 0; j < availableRoles.length; j++) {
+                if (availableRoles[j].name === currentRoles[i].name ) {
+                    availableRoles.splice(j, 1);
+               }
+            }
+        }
+        return availableRoles;
+    }
+
     private setProject(p: Project) {
         this.project._id = p._id;
         this.project.user = p.user;
@@ -66,6 +95,10 @@ export class ProjectFormComponent implements OnInit {
         this.project.content = p.content;
         this.project.projectType = p.projectType;
         this.project.image.link = p.images[0].link;
+        
+        let difference = this.arr_diff(this.project.availableRoles, p.roles);
+        this.project.availableRoles = p.roles.concat(difference);
+        this.project.roles = p.roles;
     }
 
     submit() {        

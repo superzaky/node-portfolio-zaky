@@ -10,20 +10,37 @@
                         <label for="project">Project</label>
                         <input id="projectName" type="text" class="form-control" [(ngModel)]="project.name" name="projectName" required #projectName="ngModel">
                     </div>
+                    <div *ngIf="project.roles?.length === 0">
+                        <!-- hierin heb je nog GEEN roles aangevinkt  -->
+                        <div *ngFor="let r of project.availableRoles" class="checkbox">
+                            <label>
+                                <input type="checkbox" (change)="onRoleToggle(r, $event)" [checked]="project.roles.includes(r)"> {{ r.name }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div *ngIf="project.roles.length > 0" >
+                            <!-- hierin heb je WEL al roles aangevinkt  -->
+                        <div *ngFor="let r of project.availableRoles" class="checkbox">
+                            <label>
+                                <input type="checkbox" (change)="onRoleToggle(r, $event)" [checked]="project.roles.includes(r)"> {{ r.name }}
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Content</label>
-                        <ckeditor
-                        name = "projectContent"
-                        [(ngModel)]="project.content"
-                        [readonly]="false"
-                        debounce="500">
-                    </ckeditor>
-                </div>  
-                <div class="form-group">
-                    <img *ngIf="project" class="img-responsive equal-height" src="{{project.image.link}}">    
+                            <label for="exampleInputPassword1">Content</label>
+                            <ckeditor
+                            name = "projectContent"
+                            [(ngModel)]="project.content"
+                            [readonly]="false"
+                            debounce="500">
+                        </ckeditor>
+                    </div>  
+                    <div class="form-group">
+                        <img *ngIf="project" class="img-responsive equal-height" src="{{project.image.link}}">
                         <label for="exampleInputFile">Insert uploaded image url</label>
                         <input id="projectImage" type="text" class="form-control" [(ngModel)]="project.image.link" name="projectImage" required #projectImage="ngModel">
-                    </div>  
+                    </div>
     
                     <button class="btn btn-primary">Save</button>
                 </form>

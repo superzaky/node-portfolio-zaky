@@ -243,6 +243,7 @@ router.put('/projects', function (req, res) {
             currentProject.name = req.body.name || currentProject.name;
             currentProject.content = req.body.content || currentProject.content;
             currentProject.images = req.body.images || currentProject.images;
+            currentProject.roles = req.body.roles || currentProject.roles;
             currentProject.projectType = req.body.projectType || currentProject.projectType;
 
             currentProject.save(function (err, updatedProject) {
@@ -259,6 +260,7 @@ router.put('/projects', function (req, res) {
                         content: updatedProject.content,
                         views: updatedProject.views,
                         images: updatedProject.images,
+                        roles: updatedProject.roles,
                         projectType: updatedProject.projectType
                     };
                     res.status(200).json(data);
