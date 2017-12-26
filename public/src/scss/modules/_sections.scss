@@ -45,6 +45,18 @@ section{
     margin-top: 100px;
 }
 
+.section-main {
+    padding-bottom: 0px;
+}
+
+.section-pagination {
+    padding-top: 0px;
+}
+
+.section-about {
+    margin-top: 90px;
+}
+
 .lead {
     color: $white;
 }
@@ -121,10 +133,27 @@ section{
 	left: 0;
 }
 
+.equal-height {
+    margin: auto;
+    max-height: 150px;
+    height: 150px;
+}
+
+.portfolio-item {
+    margin-bottom: 25px;
+    max-height: 350px;
+    height: 350px;
+}
+
 .project-content ul li {
     list-style: initial;
 }
 
 .project-content ol li {
     list-style: decimal;
+}
+
+.over-img {
+    // max-height: 1400px;
+    max-width: 800px;
 }

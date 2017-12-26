@@ -11,7 +11,6 @@
         </div>
     </div>
     <div class="row">
-
         <div class="col-md-8">
             <img class="img-responsive project-equal-height center-block" src="{{ project?.images[0]?.link}}" alt="">
         </div>
@@ -21,7 +20,7 @@
             <div class="project-content" [innerHTML]="project?.content"></div>
         </div>
 
-        <p>
+        <p *ngIf="currentUser.role == 'admin'" >
             <a class="btn btn-primary" [routerLink]="['/projects/edit/', project._id]">Edit</a>
             <!-- <a *ngIf="auth.authenticated()" class="btn btn-primary" [routerLink]="['/projects/edit/', project._id]">Edit</a> -->
             <button class="btn btn-danger" (click)="delete()">Delete</button>

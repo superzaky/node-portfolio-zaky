@@ -44,12 +44,20 @@ export class PortfolioComponent {
             //Content without HTML tags
             content = content.replace(/<\/?[^>]+>/gi, "");
             //Content trimmed to 6 characters
-            content = content.substring(0, Math.min(50));
+            content = content.substring(0, Math.min(45));
 
             return content;
         }
     
     }
-    
-    
+
+    shortenTitle(title: string)
+    {  
+        if(title.length > 24) {
+
+            return title.substring(0, Math.min(23)) + "..." ;
+        }
+
+        return title;
+    }
 }

@@ -19,9 +19,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/']">Home</a></li>
-                    <li [routerLinkActive]="['active']"><a [routerLink]="['/about']">Over</a></li>
                     <li [routerLinkActive]="['active']"><a [routerLink]="['/portfolio']">Portfolio</a></li>
                     <li [routerLinkActive]="['active']"><a [routerLink]="['/cv']">C.V.</a></li>
+                    <li [routerLinkActive]="['active']"><a [routerLink]="['/about']">Over</a></li>
                     <li *ngIf="user === null"><a routerLink="/login" routerLinkActive="active">login</a></li>
                     <li *ngIf="user"><a href="#">{{user.name}}</a></li>
                     <li *ngIf="user === null"><a href="#">Register</a></li>

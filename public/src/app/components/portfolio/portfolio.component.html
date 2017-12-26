@@ -37,7 +37,7 @@
                         <img class="img-responsive equal-height" src="{{ p?.images[0]?.link}}">
                     </a>
                     <h3>
-                        <a [routerLink]="['/projects/', p._id]" class="project-name"> {{ p.name }} </a>
+                        <a [routerLink]="['/projects/', p._id]" class="project-name"> {{ shortenTitle(p.name) }} </a>
                     </h3>
                     <p>{{ removeHTMLTags(p.content)}}... </p> 
                     <a [routerLink]="['/projects/', p._id]" class="btn btn-primary btn-custom">Meer info <span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -46,7 +46,7 @@
         </div>
     </div>
 </section>
-<section>
+<section class="section-pagination">
     <div class="container">
         <div class="row">
             <pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChanged($event)" class="text-center"></pagination>

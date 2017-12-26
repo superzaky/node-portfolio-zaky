@@ -10,22 +10,22 @@ export class ViewProjectComponent implements OnInit {
     project: any;
     projectId: string;
     progress: any;
+    currentUser: any;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private projectService: ProjectService) {
-
-        route.params.subscribe(p => {
+            this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
             
-            
-            this.projectId = p.id;
-            if (!this.projectId) {
-                console.log("typeof this.projectId = " + typeof this.projectId);
-                router.navigate(['/portfolio']);
-                return;
-            }
-        });
+            route.params.subscribe(p => {
+                this.projectId = p.id;
+                if (!this.projectId) {
+                    console.log("typeof this.projectId = " + typeof this.projectId);
+                    router.navigate(['/portfolio']);
+                    return;
+                }
+            });
     }
 
     ngOnInit() {
