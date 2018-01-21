@@ -32,6 +32,14 @@ export class ProjectService extends UrlService {
         return this.http.get(this.projectsEndpoint + '?' + this.toQueryString(filter), options)
         .map(res => res.json());
     }
+
+    searchProjects(filter) {
+        let options = this.addJwt();
+        options.body = '';
+
+        return this.http.get(this.projectsEndpoint + '?search=' + filter, options)
+        .map(res => res.json());
+    }
     
     getProject(id) {
         let options = this.addJwt();

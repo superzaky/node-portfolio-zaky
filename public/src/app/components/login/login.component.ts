@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 export class LoginComponent {
     user: User = new User();
     loginRes: String;
+    errorMsg: string;
     
     constructor(private _userService: UserService, private router: Router) {
     }
@@ -27,7 +28,6 @@ export class LoginComponent {
                         // store user details (which resides in res variable) and jwt token in local storage to keep user logged in between page refreshes
                         localStorage.setItem('currentUser', JSON.stringify(res));
                     }
-
 //                  I don't use navigate(), because I want a redirect where the page gets refreshed
 //                  this.router.navigate(['/']); 
                     var host = location.host;
@@ -36,6 +36,9 @@ export class LoginComponent {
                 },
                 error => {
                      console.log("iets werkt niet" + error._body);
+                     if(error._body === '"Invalid username or password"') {
+                        this.errorMsg = "De ingevoerde gebruikersnaam of wachtwoord is onjuist."
+                    }
                 }
             );
     }

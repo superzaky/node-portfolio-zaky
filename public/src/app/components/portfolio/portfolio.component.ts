@@ -23,12 +23,10 @@ export class PortfolioComponent {
     }
 
     private populateProjects() {
-        
-        console.log("this.query json stringfy  = "+  JSON.stringify(this.query, null, 4));
+        // console.log("this.query json stringfy  = "+  JSON.stringify(this.query, null, 4));
         this.projectService.getProjects(this.query)
-            
             .subscribe(result => {
-                console.log("result json stringfy  = "+  JSON.stringify(result, null, 4));
+                // console.log("result json stringfy  = "+  JSON.stringify(result, null, 4));
                 this.queryResult = result
             });
     }
@@ -48,7 +46,6 @@ export class PortfolioComponent {
 
             return content;
         }
-    
     }
 
     shortenTitle(title: string)

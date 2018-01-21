@@ -87,6 +87,51 @@ router.get('/projects', function (req, res) {
                 }
             });  
         }
+    } else if(req.query.search || req.query.search !== undefined) {
+        escapeRegex(req.query.search)
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        if (user.role !== "admin"){
+            //person is a user or guest.
+            Project.find({ name: regex, roles : { name : user.role} })
+            .exec(function(err, currentProjects) {
+                
+                if (currentProjects !== null) {
+                    if (err) console.log("een error " + error);
+    
+                    Project.count({}, function(err, count){
+                        var obj = {
+                            totalItems: count,
+                            items: currentProjects
+                        }
+                        // console.log("json stringfy obj  = "+JSON.stringify(obj, null, 4));
+                        res.status(200).json(obj);
+                    });
+                } else {
+                    console.log("geen projecten gevonden");
+                    res.status(400).json("No projects found.");
+                }
+            }); 
+        } else {
+            //Person is admin. get the projects.
+            Project.find({name: regex})
+            .exec(function(err, currentProjects) {
+                
+                if (currentProjects !== null) {
+                    if (err) console.log("een error " + error);
+    
+                    Project.count({}, function(err, count){
+                        var obj = {
+                            totalItems: count,
+                            items: currentProjects
+                        }
+                        res.status(200).json(obj);
+                    });
+                } else {
+                    console.log("geen projecten gevonden");
+                    res.status(400).json("No projects found.");
+                }
+            });  
+        }
     } else {
         if (user.role !== "admin"){
             //person is a user or guest.
@@ -130,6 +175,10 @@ router.get('/projects', function (req, res) {
         }
     }
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+};
 
 router.get('/projects/:id', function (req, res) { 
     if (!req.headers.authorization || req.headers.authorization === undefined) {
