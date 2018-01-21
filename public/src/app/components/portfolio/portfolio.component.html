@@ -4,14 +4,13 @@
             <div class="col-md-6">
                 <form class="search">
                     <div>
-                        <input type="search" placeholder="Zoek projecten">
+                        <input type="search" placeholder="Zoek projecten" name="searchStr" (keyup)="searchProjects()" [(ngModel)]="searchStr" >
                         <button type="submit" value=""><img src="../../../images/search.png" alt="Search"></button>
                     </div>
                 </form>
             </div>
             <div class="col-md-6">
-                <p> 
-                <!-- <p *ngIf="auth.authenticated()"> -->
+                <p *ngIf="currentUser.role == 'admin'" >
                     <a [routerLink]="['/projects/new']" class="btn btn-primary">New project</a>
                 </p>
             </div>

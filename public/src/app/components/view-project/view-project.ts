@@ -1,6 +1,6 @@
 import { ProjectService } from './../../services/project.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
     templateUrl: 'view-project.html',
@@ -25,6 +25,13 @@ export class ViewProjectComponent implements OnInit {
                     router.navigate(['/portfolio']);
                     return;
                 }
+            });
+
+            router.events.subscribe((evt) => {
+                if (!(evt instanceof NavigationEnd)) {
+                    return;
+                }
+                window.scrollTo(0, 0)
             });
     }
 

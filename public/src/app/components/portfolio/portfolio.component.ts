@@ -8,14 +8,33 @@ import { Component } from '@angular/core';
 
 export class PortfolioComponent { 
     private readonly PAGE_SIZE = 9;
-    
     queryResult: any = {};
     query: any = {
         pageSize: this.PAGE_SIZE
     };
+    currentUser: any;
+    searchStr: string;
+    errorMsg: string;
 
     constructor(private projectService: ProjectService) {
-        
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    }
+
+    searchProjects(){
+        console.log(this.searchStr);
+        if(this.searchStr) {
+            this.projectService.searchProjects(this.searchStr)
+            .subscribe(result => {
+                this.queryResult = result;
+            },
+            error => {
+                if(error._body === '"Token not found"') {
+                    this.errorMsg = "Log eerst in s.v.p."
+                }
+            });
+        } else {
+            this.populateProjects();
+        }
     }
 
     ngOnInit() {

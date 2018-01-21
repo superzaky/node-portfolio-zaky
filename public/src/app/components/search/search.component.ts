@@ -30,7 +30,6 @@ export class SearchComponent {
             });
         } else {
             this.searchResult = [];
-            this.searchStr = '';
         }
     }
 
