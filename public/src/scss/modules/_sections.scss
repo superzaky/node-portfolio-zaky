@@ -142,15 +142,22 @@ section{
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background: inherit;
+        background: #fff;
+        transition: background .5s ease-in-out;
+    }
+    &.in-view::after {
+        background: #F45B69;
     }
     div {
-      position: relative;
-      bottom: 0;
-      width: 400px;
-      padding: 15px;
-      background: #F45B69;
-      &::before {
+        position: relative;
+        bottom: 0;
+        width: 400px;
+        padding: 15px;
+        background: #F45B69;
+        visibility: hidden;
+        opacity: 0;
+        transition: all .5s ease-in-out;
+        &::before {
             content: '';
             position: absolute;
             bottom: 7px;
@@ -160,8 +167,9 @@ section{
         }
     }
     &:nth-child(odd) div {
-      left: 45px;
-      &::before {
+        left: 45px;
+        transform: translate3d(200px, 0, 0);
+        &::before {
             left: -15px;
             border-width: 8px 16px 8px 0;
             border-color: transparent #F45B69 transparent transparent;
@@ -169,11 +177,46 @@ section{
     }
     &:nth-child(even) div {
         left: -439px;
+        transform: translate3d(-200px, 0, 0);
         &::before {
             right: -15px;
             border-width: 8px 0 8px 16px;
             border-color: transparent transparent transparent #F45B69;
         }
+    }
+    &.in-view div {
+        transform: none;
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .timeline ul li {
+        div {
+            width: 250px;
+        }
+        &:nth-child(even) div {
+            left: -289px;
+            /*250+45-6*/
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .timeline ul li {
+        margin-left: 20px;
+        div {
+            width: calc(100vw - 91px);
+        }
+        &:nth-child(even) div {
+            left: 45px;
+            &::before {
+                left: -15px;
+                border-width: 8px 16px 8px 0;
+                border-color: transparent #F45B69 transparent transparent;
+            }
+        }   
     }
 }
 
