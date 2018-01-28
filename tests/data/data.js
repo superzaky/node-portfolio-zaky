@@ -132,6 +132,26 @@ var data = {
                     ],
                     projectType: "App"
                 }
+            ],
+            Company: [
+                {
+                    _id: ObjectId("000000000000000000000001"),
+                    name: "MediaMarket",
+                    time: "2005",
+                    content: "Selling tech for low prices.",
+                    roles: [
+                        {name: "user"}
+                    ]
+                },
+                {
+                    _id: ObjectId("000000000000000000000002"),
+                    name: "Bike store",
+                    time: "1999",
+                    content: "Selling bikes.",
+                    roles: [
+                        {name: "guest"}
+                    ]
+                }
             ]
         }, function (err, data) {
             // data is an array of all the documents created 

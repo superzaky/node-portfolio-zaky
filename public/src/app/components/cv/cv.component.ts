@@ -1,22 +1,33 @@
-import {Component, HostListener} from '@angular/core'
+import {Component, HostListener, ViewChildren} from '@angular/core'
+import { CompanyService } from './../../services/company.service';
 
 @Component({
     moduleId: module.id,
     selector: 'cv',
-    templateUrl : 'cv.component.html'
+    templateUrl : 'cv.component.html',
+    providers: [CompanyService]
 })
 
 export class CvComponent { 
     items: any;
-
-    constructor() {
+    queryResult: any = {};
+    last: any;
+    @ViewChildren('allTheseThings') things: any;
     
-    }
-    ngOnInit() {
-    }
+    constructor(private companyService: CompanyService) {}
 
+    private populateCompanies() {
+        this.companyService.getCompanies()
+            .subscribe(result => {
+                this.queryResult = result
+            });
+    }
+        
     ngAfterViewInit() {
-        this.items = document.querySelectorAll(".timeline li");
+        this.populateCompanies();
+        this.things.changes.subscribe(t => {
+            this.items = document.querySelectorAll(".timeline li");
+        })
     }
 
     @HostListener('window:scroll', ['$event'])

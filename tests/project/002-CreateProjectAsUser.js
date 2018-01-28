@@ -37,7 +37,7 @@ describe("A user creates a project", function () {
                 });
     });
     
-    it('should create a SINGLE project on /api/projects POST', function (done) {
+    it('should not create a SINGLE project on /api/projects POST', function (done) {
         //calling PROJECT api
         server
                 .post('/api/projects')

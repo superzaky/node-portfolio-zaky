@@ -57,6 +57,14 @@ section{
     margin-top: 90px;
 }
 
+.cv-text {
+    font-size: 18px;
+}
+
+.about-text {
+    font-size: 18px;
+}
+
 .lead {
     color: $white;
 }
@@ -133,6 +141,7 @@ section{
     margin: 0 auto;
     padding-top: 50px;
     background: $primary-color;
+    color: $white;
     &::after {
         content: '';
         position: absolute;
@@ -142,18 +151,18 @@ section{
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background: #fff;
+        background: $primary-color;
         transition: background .5s ease-in-out;
     }
     &.in-view::after {
-        background: #F45B69;
+        background: $secondary-color;
     }
     div {
         position: relative;
         bottom: 0;
         width: 400px;
         padding: 15px;
-        background: #F45B69;
+        background: $secondary-color;
         visibility: hidden;
         opacity: 0;
         transition: all .5s ease-in-out;
@@ -172,7 +181,7 @@ section{
         &::before {
             left: -15px;
             border-width: 8px 16px 8px 0;
-            border-color: transparent #F45B69 transparent transparent;
+            border-color: transparent $secondary-color transparent transparent;
         }
     }
     &:nth-child(even) div {
@@ -181,7 +190,7 @@ section{
         &::before {
             right: -15px;
             border-width: 8px 0 8px 16px;
-            border-color: transparent transparent transparent #F45B69;
+            border-color: transparent transparent transparent $secondary-color;
         }
     }
     &.in-view div {
@@ -218,6 +227,12 @@ section{
             }
         }   
     }
+}
+
+time {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
 .svg-content { 
