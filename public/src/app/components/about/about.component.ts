@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -7,7 +8,12 @@ import { Component } from '@angular/core';
 })
 
 export class AboutComponent { 
-    constructor() {
-        
+    constructor(private router: Router) {
+        router.events.subscribe((evt) => {
+            if (!(evt instanceof NavigationEnd)) {
+                return;
+            }
+            window.scrollTo(0, 0)
+        });
     }
 }

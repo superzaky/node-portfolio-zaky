@@ -223,7 +223,7 @@ section{
             &::before {
                 left: -15px;
                 border-width: 8px 16px 8px 0;
-                border-color: transparent #F45B69 transparent transparent;
+                border-color: transparent $secondary-color transparent transparent;
             }
         }   
     }
@@ -260,6 +260,10 @@ time {
 
 .project-content ol li {
     list-style: decimal;
+}
+
+.project-equal-height {
+    max-height: 700px;
 }
 
 .over-img {

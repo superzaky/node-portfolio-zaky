@@ -1,5 +1,6 @@
 import { ProjectService } from './../../services/project.service';
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     templateUrl : 'portfolio.component.html',
@@ -16,8 +17,14 @@ export class PortfolioComponent {
     searchStr: string;
     errorMsg: string;
 
-    constructor(private projectService: ProjectService) {
+    constructor(private projectService: ProjectService, private router: Router) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        router.events.subscribe((evt) => {
+            if (!(evt instanceof NavigationEnd)) {
+                return;
+            }
+            window.scrollTo(0, 0)
+        });
     }
 
     searchProjects(){

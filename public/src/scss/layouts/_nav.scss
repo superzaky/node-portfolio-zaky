@@ -28,3 +28,18 @@
     margin-top: -19px;;
 }
 
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: $primary-color-dark;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: $secondary-color;
+}
+
+.navbar-toggle {
+    background:$primary-color
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border: none;
+}

@@ -1,5 +1,6 @@
 import {Component, HostListener, ViewChildren} from '@angular/core'
 import { CompanyService } from './../../services/company.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -14,7 +15,14 @@ export class CvComponent {
     last: any;
     @ViewChildren('allTheseThings') things: any;
     
-    constructor(private companyService: CompanyService) {}
+    constructor(private companyService: CompanyService, private router: Router) {
+        router.events.subscribe((evt) => {
+            if (!(evt instanceof NavigationEnd)) {
+                return;
+            }
+            window.scrollTo(0, 0)
+        });
+    }
 
     private populateCompanies() {
         this.companyService.getCompanies()

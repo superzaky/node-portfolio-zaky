@@ -21,7 +21,7 @@
         </div>
 
         <p *ngIf="currentUser.role == 'admin'" >
-            <a class="btn btn-primary" [routerLink]="['/projects/edit/', project._id]">Edit</a>
+            <a class="btn btn-primary" [routerLink]="['/projects/edit/', project?._id]">Edit</a>
             <!-- <a *ngIf="auth.authenticated()" class="btn btn-primary" [routerLink]="['/projects/edit/', project._id]">Edit</a> -->
             <button class="btn btn-danger" (click)="delete()">Delete</button>
         </p>
