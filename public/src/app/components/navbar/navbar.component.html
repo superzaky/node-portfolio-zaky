@@ -24,7 +24,6 @@
                     <li [routerLinkActive]="['active']"><a [routerLink]="['/about']">Over</a></li>
                     <li *ngIf="user === null"><a routerLink="/login" routerLinkActive="active">login</a></li>
                     <li *ngIf="user"><a href="#">{{user.name}}</a></li>
-                    <li *ngIf="user === null"><a href="#">Register</a></li>
                     <li *ngIf="user" (click)="logOut()"><a href="#">Log out</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->

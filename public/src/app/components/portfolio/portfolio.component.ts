@@ -28,7 +28,6 @@ export class PortfolioComponent {
     }
 
     searchProjects(){
-        console.log(this.searchStr);
         if(this.searchStr) {
             this.projectService.searchProjects(this.searchStr)
             .subscribe(result => {
@@ -54,6 +53,12 @@ export class PortfolioComponent {
             .subscribe(result => {
                 // console.log("result json stringfy  = "+  JSON.stringify(result, null, 4));
                 this.queryResult = result
+            },
+            error => {
+                if(error._body === '"Token not found"') {
+                    this.router.navigate(['/login']);
+                    return;
+                }
             });
     }
 
@@ -67,6 +72,8 @@ export class PortfolioComponent {
         if (content) {
             //Content without HTML tags
             content = content.replace(/<\/?[^>]+>/gi, "");
+            //make your replace global with the /g modifier on a regex, otherwise it will only replace the first instance of &amp;
+            content = content.replace(/&amp;/g, '&');
             //Content trimmed to 6 characters
             content = content.substring(0, Math.min(45));
 

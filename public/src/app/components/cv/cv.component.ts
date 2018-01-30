@@ -13,9 +13,12 @@ export class CvComponent {
     items: any;
     queryResult: any = {};
     last: any;
+    currentUser: any;
     @ViewChildren('allTheseThings') things: any;
     
     constructor(private companyService: CompanyService, private router: Router) {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
         router.events.subscribe((evt) => {
             if (!(evt instanceof NavigationEnd)) {
                 return;
@@ -28,9 +31,15 @@ export class CvComponent {
         this.companyService.getCompanies()
             .subscribe(result => {
                 this.queryResult = result
+            },
+            error => {
+                if(error._body === '"Token not found"') {
+                    this.router.navigate(['/login']);
+                    return;
+                }
             });
     }
-        
+
     ngAfterViewInit() {
         this.populateCompanies();
         this.things.changes.subscribe(t => {

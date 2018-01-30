@@ -41,6 +41,10 @@ const routes: Routes = [
         component: PortfolioComponent,
     },
     {
+        path: 'projects', 
+        component: PortfolioComponent,
+    },
+    {
         path: 'projects/new', 
         component: ProjectFormComponent,
     },

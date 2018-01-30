@@ -17,7 +17,6 @@ export class SearchComponent {
     }
 
     searchProjects(){
-        console.log(this.searchStr);
         if(this.searchStr) {
             this.projectService.searchProjects(this.searchStr)
             .subscribe(result => {
