@@ -41,7 +41,7 @@ export class NavbarComponent {
                     this.user = res;
                     var host = location.host;
                     //redirects where the page also gets refreshed
-                    window.location.href = "http://"+ host;
+                    window.location.href = "https://"+ host;
                 },
                 error => {
                     console.log("app logout error");
