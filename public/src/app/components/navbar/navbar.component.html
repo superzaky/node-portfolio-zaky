@@ -18,12 +18,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/']">Home</a></li>
-                    <li [routerLinkActive]="['active']"><a [routerLink]="['/portfolio']">Portfolio</a></li>
-                    <li [routerLinkActive]="['active']"><a [routerLink]="['/cv']">C.V.</a></li>
-                    <li [routerLinkActive]="['active']"><a [routerLink]="['/about']">Over</a></li>
-                    <li *ngIf="user === null"><a routerLink="/login" routerLinkActive="active">login</a></li>
-                    <li *ngIf="user"><a href="#">{{user.name}}</a></li>
+                    <li [routerLinkActive]="['active']" (click)="onMenuClick()" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/']">Home</a></li>
+                    <li [routerLinkActive]="['active']" (click)="onMenuClick()"><a [routerLink]="['/portfolio']">Portfolio</a></li>
+                    <li [routerLinkActive]="['active']" (click)="onMenuClick()"><a [routerLink]="['/cv']">C.V.</a></li>
+                    <li [routerLinkActive]="['active']" (click)="onMenuClick()"><a [routerLink]="['/about']">Over</a></li>
+                    <li *ngIf="user === null"><a routerLink="/login" routerLinkActive="active" (click)="onMenuClick()">login</a></li>
+                    <li *ngIf="user"><a href="#" (click)="onMenuClick()">{{user.name}}</a></li>
                     <li *ngIf="user" (click)="logOut()"><a href="#">Log out</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->

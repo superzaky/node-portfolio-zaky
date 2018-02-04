@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer, ElementRef } from '@angular/core';
 // import {RouterModule} from '@angular/router'; WIS
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
@@ -14,7 +14,7 @@ import { User } from '../../models/user';
 export class NavbarComponent { 
     user: User;
     //On page refresh the constructor gets called
-    constructor(private _userService: UserService) {
+    constructor(private _userService: UserService, private el: ElementRef, private renderer: Renderer) {
         
         this._userService.getSession()
             .subscribe(
@@ -30,6 +30,13 @@ export class NavbarComponent {
                 }
             );
     }
+
+    onMenuClick() {
+        //this.el.nativeElement.querySelector('#bs-example-navbar-collapse-1')  get the DOM
+        //this.renderer.setElementClass('DOM-Element', 'css-class-you-want-to-add', false) if 3rd value is true 
+        //it will add the css class. 'in' class is responsible for showing the menu.
+        this.renderer.setElementClass(this.el.nativeElement.querySelector('#bs-example-navbar-collapse-1'), 'in', false);        
+    }
     
     logOut(){
         this.user.logout = true;
@@ -40,6 +47,7 @@ export class NavbarComponent {
                 res => {
                     this.user = res;
                     var host = location.host;
+                    this.onMenuClick();
                     //redirects where the page also gets refreshed
                     window.location.href = "https://"+ host;
                 },
