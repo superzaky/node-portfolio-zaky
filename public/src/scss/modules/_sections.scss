@@ -134,69 +134,72 @@ section{
     }
 }
 
-.timeline ul li {
-    list-style-type: none;
-    position: relative;
-    width: 6px;
-    margin: 0 auto;
-    padding-top: 50px;
-    background: $primary-color;
-    color: $white;
-    &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: $primary-color;
-        transition: background .5s ease-in-out;
-    }
-    &.in-view::after {
-        background: $secondary-color;
-    }
-    div {
+.timeline ul {
+    padding: 0px;
+    li {
+        list-style-type: none;
         position: relative;
-        bottom: 0;
-        width: 400px;
-        padding: 15px;
-        background: $secondary-color;
-        visibility: hidden;
-        opacity: 0;
-        transition: all .5s ease-in-out;
-        &::before {
+        width: 6px;
+        margin: 0 auto;
+        padding-top: 50px;
+        background: $primary-color;
+        color: $white;
+        &::after {
             content: '';
             position: absolute;
-            bottom: 7px;
-            width: 0;
-            height: 0;
-            border-style: solid;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: $primary-color;
+            transition: background .5s ease-in-out;
         }
-    }
-    &:nth-child(odd) div {
-        left: 45px;
-        transform: translate3d(200px, 0, 0);
-        &::before {
-            left: -15px;
-            border-width: 8px 16px 8px 0;
-            border-color: transparent $secondary-color transparent transparent;
+        &.in-view::after {
+            background: $secondary-color;
         }
-    }
-    &:nth-child(even) div {
-        left: -439px;
-        transform: translate3d(-200px, 0, 0);
-        &::before {
-            right: -15px;
-            border-width: 8px 0 8px 16px;
-            border-color: transparent transparent transparent $secondary-color;
+        div {
+            position: relative;
+            bottom: 0;
+            width: 400px;
+            padding: 15px;
+            background: $secondary-color;
+            visibility: hidden;
+            opacity: 0;
+            transition: all .5s ease-in-out;
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 7px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+            }
         }
-    }
-    &.in-view div {
-        transform: none;
-        visibility: visible;
-        opacity: 1;
+        &:nth-child(odd) div {
+            left: 45px;
+            // transform: translate3d(200px, 0, 0);
+            &::before {
+                left: -15px;
+                border-width: 8px 16px 8px 0;
+                border-color: transparent $secondary-color transparent transparent;
+            }
+        }
+        &:nth-child(even) div {
+            left: -439px;
+            // transform: translate3d(-200px, 0, 0);
+            &::before {
+                right: -15px;
+                border-width: 8px 0 8px 16px;
+                border-color: transparent transparent transparent $secondary-color;
+            }
+        }
+        &.in-view div {
+            transform: none;
+            visibility: visible;
+            opacity: 1;
+        }
     }
 }
 

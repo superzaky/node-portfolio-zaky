@@ -467,6 +467,10 @@ section {
   }
 }
 
+.timeline ul {
+  padding: 0px;
+}
+
 .timeline ul li {
   list-style-type: none;
   position: relative;
@@ -516,7 +520,6 @@ section {
 
 .timeline ul li:nth-child(odd) div {
   left: 45px;
-  transform: translate3d(200px, 0, 0);
 }
 
 .timeline ul li:nth-child(odd) div::before {
@@ -527,7 +530,6 @@ section {
 
 .timeline ul li:nth-child(even) div {
   left: -439px;
-  transform: translate3d(-200px, 0, 0);
 }
 
 .timeline ul li:nth-child(even) div::before {
