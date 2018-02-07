@@ -49,7 +49,7 @@ export class NavbarComponent {
                     var host = location.host;
                     this.onMenuClick();
                     //redirects where the page also gets refreshed
-                    window.location.href = "https://"+ host;
+                    window.location.href = "//"+ host;
                 },
                 error => {
                     console.log("app logout error");
