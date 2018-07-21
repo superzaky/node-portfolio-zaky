@@ -22,8 +22,7 @@ describe("A user registers", function () {
                     confirm_password: "open"
                 })
                 .expect("Content-type", /json/)
-                .expect(200)
-                .end(function (err, res) {
+                .expect(function (res) {
                     //TO DO: compare created_at and updated_at
                     var data = {
                         _id: res.body._id, //the _id is dynamic because it's just created
@@ -35,12 +34,19 @@ describe("A user registers", function () {
                     assert.deepEqual(res.body, data);
                     //TO DO: check if user is inserted in the database through using the ID to find the user
                     id = res.body._id;
+                })
+                .expect(function (res) {
+                    User.find({username: "john"}, function (err, users) {
+                        if (err)
+                            return console.error(err);
+                        assert.equal(users.length, 1);
+                        assert.equal(users[0].username, 'john');
+                    });
+                })
+                .end(function (err, res) {
+           
                     done();
                 });
     });
-    User.find({username: "john"}, function (err, users) {
-        if (err)
-            return console.error(err);
-        assert.equal(users.length, 1);
-    });
+  
 });

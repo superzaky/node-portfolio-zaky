@@ -46,36 +46,35 @@ router.post('/register', function (req, res) {
             res.status(400).json("You already have registered"); 
             return;
         }
-    });
-
-    // create a new user
-    var newUser = User({
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password,
-        confirm_password: req.body.confirm_password,
-        role: "guest"
-    });
-    
-    try {
-        newUser.validateInput(req.body);
-    } catch (err) {
-        res.status(400).json(err);
-        return;
-    }
-  
-    newUser.save(function (err, newUser) {
-        if (err){} 
-        else {
-            var data = {
-                _id: newUser._id,
-                name: newUser.name,
-                username: newUser.username,
-                role: newUser.role
-            };
-            res.status(200).json(data);
+        // create a new user
+        var newUser = User({
+            name: req.body.name,
+            username: req.body.username,
+            password: req.body.password,
+            confirm_password: req.body.confirm_password,
+            role: "guest"
+        });
+        
+        try {
+            newUser.validateInput(req.body);
+        } catch (err) {
+            res.status(400).json(err);
+            return;
         }
-    });    
+      
+        newUser.save(function (err, newUser) {
+            if (err){} 
+            else {
+                var data = {
+                    _id: newUser._id,
+                    name: newUser.name,
+                    username: newUser.username,
+                    role: newUser.role
+                };
+                res.status(200).json(data);
+            }
+        });    
+    });
 });
 
 router.post('/login', function (req, res) {
