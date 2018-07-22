@@ -35,7 +35,7 @@ describe("A user logs in with wrong credentials", function () {
                 .expect("Content-type", /json/)
                 .expect(404)
                 .end(function (err, res) {
-                    var data = "Session not found";
+                    var data = "Token not found";
                     res.status.should.equal(404);
                     assert.deepEqual(res.body, data);
                     done();

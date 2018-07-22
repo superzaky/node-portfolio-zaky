@@ -27,7 +27,8 @@ describe("A user updates a project", function () {
                         _id: "000000000000000000000002",
                         name: "Peter Parker",
                         username: "peter",
-                        role: "user"
+                        role: "user",
+                        token: res.body.token
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);

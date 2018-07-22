@@ -9,7 +9,7 @@ var server = supertest.agent(app);
 // UNIT test begin
 var User = require('../../models/User');
 
-describe("An admin deletes a user", function () {
+describe("A user deletes a user", function () {
     var id = "asd";
 
     it('should create a SINGLE session on /api/auth/login UPDATE', function (done) {
@@ -27,7 +27,8 @@ describe("An admin deletes a user", function () {
                         _id: "000000000000000000000002",
                         name: "Peter Parker",
                         username: "peter",
-                        role: "user"
+                        role: "user",
+                        token: res.body.token
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
