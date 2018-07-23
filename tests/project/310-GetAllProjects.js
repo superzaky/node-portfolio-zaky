@@ -9,7 +9,7 @@ var server = supertest.agent(app);
 // UNIT test begin
 var User = require('../../models/User');
 
-describe("A user gets projects", function () {
+describe("310 - An admin gets projects", function () {
     var token = "";
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
@@ -36,7 +36,7 @@ describe("A user gets projects", function () {
                 });
             });
             
-            it('should get a SINGLE project on /api/projects/ GET', function (done) {
+            it('should get projects on /api/projects/ GET', function (done) {
                 //calling PROJECT api
                 server
                 .get('/api/projects')
@@ -81,6 +81,21 @@ describe("A user gets projects", function () {
                                 __v: 0
                             },
                             {
+                                _id: "000000000000000000000003",
+                                user: "000000000000000000000001",
+                                name: "project table",
+                                content: "some project about a table.",
+                                views: 0,
+                                images: [ 
+                                    {link: "http://myimages.com/myimage06.png"}
+                                ],
+                                roles: [
+                                    {name: "user"}
+                                ],
+                                projectType: "Desktop",
+                                __v: 0
+                            },
+                            {
                                 _id: "000000000000000000000004",
                                 user: "000000000000000000000001",
                                 name: "project strawberry",
@@ -97,21 +112,6 @@ describe("A user gets projects", function () {
                                 projectType: "App",
                                 __v: 0
                             },               
-                            {
-                                _id: "000000000000000000000003",
-                                user: "000000000000000000000001",
-                                name: "project table",
-                                content: "some project about a table.",
-                                views: 0,
-                                images: [ 
-                                    {link: "http://myimages.com/myimage06.png"}
-                                ],
-                                roles: [
-                                    {name: "user"}
-                                ],
-                                projectType: "Desktop",
-                                __v: 0
-                            },
                             {
                                 _id: "000000000000000000000005",
                                 user: "000000000000000000000001",

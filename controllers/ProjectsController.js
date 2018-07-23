@@ -135,7 +135,7 @@ router.get('/projects', function (req, res) {
     } else {
         if (user.role !== "admin"){
             //person is a user or guest.
-            Project.find({ roles : { name : user.role} }, function(err, currentProjects) {
+            Project.find({ roles : { name : user.role} }, null, {sort: {'_id': 1}}, function(err, currentProjects) {
                 if (currentProjects !== null) {
                     if (err) console.log("een error " + err);
                     
@@ -155,7 +155,7 @@ router.get('/projects', function (req, res) {
         } else {
             //person is admin.
             // get the projects
-            Project.find({}, function(err, currentProjects) {
+            Project.find({}, null, {sort: {'_id': 1}}, function(err, currentProjects) {
                 if (currentProjects !== null) {
                     if (err) console.log("een error " + err);
                     

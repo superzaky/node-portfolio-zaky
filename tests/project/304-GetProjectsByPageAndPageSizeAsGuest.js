@@ -9,7 +9,7 @@ var server = supertest.agent(app);
 // UNIT test begin
 var User = require('../../models/User');
 
-describe("A guest gets projects", function () {
+describe("304 - A guest gets projects", function () {
     var token = "";
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api
@@ -44,7 +44,7 @@ describe("A guest gets projects", function () {
                 .expect("Content-type", /json/)
                 .expect(200)
                 .end(function (err, res) {
-                    console.log("res " + res.body);
+                    console.log("res =  ", res.body);
                     
                     var data = {
                         totalItems: 6,
