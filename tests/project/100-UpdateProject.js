@@ -65,7 +65,12 @@ describe("An admin updates a project", function () {
                         images: [ 
                             {link: "http://myimages.com/myimage10.png"}
                         ],
-                        projectType: "Desktop"
+                        projectType: "Desktop",
+                        roles: [
+                            {
+                                name: "user"
+                            }
+                        ]
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);

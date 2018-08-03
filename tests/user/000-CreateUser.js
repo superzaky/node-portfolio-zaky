@@ -27,7 +27,8 @@ describe("An admin creates a user", function () {
                         _id: "000000000000000000000001",
                         name: "Jimmy Doe",
                         username: "jimmy",
-                        role: "admin"
+                        role: "admin",
+                        token: res.body.token
                     };
                     res.status.should.equal(200);
                     assert.deepEqual(res.body, data);
@@ -48,7 +49,7 @@ describe("An admin creates a user", function () {
                 })
                 .expect("Content-type", /json/)
                 .expect(200)
-                .end(function (err, res) {
+                .expect(function (res) {
                     //TO DO: compare created_at and updated_at
                     var data = {
                         _id: res.body._id, //the _id is dynamic because it's just created
@@ -60,12 +61,18 @@ describe("An admin creates a user", function () {
                     assert.deepEqual(res.body, data);
                     //TO DO: check if user is inserted in the database through using the ID to find the user
                     id = res.body._id;
+                })
+                .expect(function (res) {
+                    User.find({username: "kees"}, function (err, users) {
+                        if (err)
+                            return console.error(err);
+                        assert.equal(users.length, 1);
+                        assert.equal(users[0].username, 'kees');
+                    });
+                })
+                .end(function (err, res) {
                     done();
                 });
     });
-    User.find({username: "kees"}, function (err, users) {
-        if (err)
-            return console.error(err);
-        assert.equal(users.length, 1);
-    });
+
 });

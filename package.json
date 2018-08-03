@@ -31,7 +31,7 @@
     "supertest": "^1.2.0"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha tests",
+    "test": "node_modules/.bin/mocha \"tests/**/*.js\"",
     "start" : "node app.js",
     "preinstall": "cd public && npm install --dev && npm install -g @angular/cli@1.4.3 && npm install && cd src && npm install -g bower@1.8.2&& bower install && cd .. && ng build"
   }

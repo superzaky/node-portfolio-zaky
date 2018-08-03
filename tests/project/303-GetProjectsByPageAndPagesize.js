@@ -9,7 +9,7 @@ var server = supertest.agent(app);
 // UNIT test begin
 var User = require('../../models/User');
 
-describe("A user gets projects", function () {
+describe("303 - An admin gets projects", function () {
     var token = "";
     it('should create a SINGLE session on /api/auth/login POST', function (done) {
         //calling LOGIN api

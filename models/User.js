@@ -37,7 +37,8 @@ userSchema.pre('save', function (next) {
  * @param {type} body
  * @returns {Boolean}
  */
-userSchema.methods.validateInput = function (body) {
+// assign a function to the "statics" object of our userSchema to make validateInput() a static method.
+userSchema.statics.validateInput = function (body) {
     if (body.username === "" || body.hasOwnProperty('username') === false) throw "A username is required.";
     
     if (body.name === "" || body.hasOwnProperty('name') === false) throw "A name is required.";
