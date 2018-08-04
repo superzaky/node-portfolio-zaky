@@ -1,23 +1,20 @@
 // With strict mode, you can not, for example, use undeclared variables.
 var User = require('../models/User');
+var MongooseService = require('./MongooseService');
 
 'use strict';
 
-module.exports = class UserService {
-   constructor() {
-   }
-
-   display() {
-       console.log(this.firstName + " " + this.lastName);
-   }
+module.exports = class UserService extends MongooseService {
+    constructor() {
+        super();
+    }
 
     async findOne(username) {
         // Find one user
         return await User.findOne({ username: username }).exec();
     }
 
-
-    validate(req){
+    validate(req) {
         try {
             console.log('ye');
             //invoke validateInput() without instantiating it
@@ -31,9 +28,9 @@ module.exports = class UserService {
         }
     }
 
-    makeUser(req) {
+    makeEntity(req) {
         // create a new user
-        this.newUser = User({
+        this.newEntity = User({
             name: req.body.name,
             username: req.body.username,
             password: req.body.password,
@@ -41,9 +38,4 @@ module.exports = class UserService {
             role: "guest"
         });
     }
-
-    async save() {
-        return await this.newUser.save();  
-    }
-   
 }

@@ -55,7 +55,7 @@ router.post('/register', function (req, res) {
         res.status(400).json(result);
         return;
     }
-    userService.makeUser(req);
+    userService.makeEntity(req);
     result = userService.save();
 
     result.then (function (user) {
