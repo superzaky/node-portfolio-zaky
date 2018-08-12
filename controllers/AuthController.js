@@ -42,7 +42,7 @@ router.get('/', function (req, res) {
 });
 
 router.post('/register', function (req, res) {            
-    var userService = new UserService();
+    var userService = new UserService('username');
     let result = userService.findOne(req.body.username);
     result.then (function (user) {
         if (user !== null) {
@@ -55,7 +55,7 @@ router.post('/register', function (req, res) {
         res.status(400).json(result);
         return;
     }
-    userService.makeEntity(req);
+    userService.makeModel(req);
     result = userService.save();
 
     result.then (function (user) {

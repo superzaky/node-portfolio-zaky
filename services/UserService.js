@@ -5,32 +5,13 @@ var MongooseService = require('./MongooseService');
 'use strict';
 
 module.exports = class UserService extends MongooseService {
-    constructor() {
-        super();
+    constructor(key) {
+        super(User, key);
     }
 
-    async findOne(username) {
-        // Find one user
-        return await User.findOne({ username: username }).exec();
-    }
-
-    validate(req) {
-        try {
-            console.log('ye');
-            //invoke validateInput() without instantiating it
-            User.validateInput(req.body);
-            console.log('ye2');
-            return true;
-        } catch (err) {
-            // res.status(400).json(err);
-            console.log('error ', err);
-            return err;
-        }
-    }
-
-    makeEntity(req) {
+    makeModel(req) {
         // create a new user
-        this.newEntity = User({
+        this.model = User({
             name: req.body.name,
             username: req.body.username,
             password: req.body.password,
