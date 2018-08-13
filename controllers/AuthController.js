@@ -1,11 +1,12 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 // grab the user model
-var User = require('../models/User');
-var sha1 = require('sha1');
-var config = require('../config/config');
-var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-var UserService = require('../services/UserService');
+let User = require('../models/User');
+let sha1 = require('sha1');
+let config = require('../config/config');
+let jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+let UserService = require('../services/UserService');
+let AuthService = require('../services/AuthService');
 
 router.get('/', function (req, res) {
     if (!req.headers.authorization || req.headers.authorization === undefined) {
@@ -14,7 +15,7 @@ router.get('/', function (req, res) {
     }
 
     console.log("json stringfy get req.headers.authorization.split(' ')[1] = "+JSON.stringify(req.headers.authorization.split(' ')[1], null, 4));
-    var token = req.headers.authorization.split(' ')[1];
+    let token = req.headers.authorization.split(' ')[1];
     jwt.verify(token, config.development.secret, function(err, decoded) {
         // console.log("json stringfy token decoded = "+JSON.stringify(decoded, null, 4));
         if (err) {
@@ -42,8 +43,8 @@ router.get('/', function (req, res) {
 });
 
 router.post('/register', function (req, res) {            
-    var userService = new UserService('username');
-    let result = userService.findOne(req.body.username);
+    let userService = new UserService(['username']);
+    let result = userService.findOne([req.body.username]);
     result.then (function (user) {
         if (user !== null) {
             res.status(400).json("You already have registered");
@@ -64,39 +65,24 @@ router.post('/register', function (req, res) {
 });
 
 router.post('/login', function (req, res) {
-    console.log("login ctrl");
-
     if(req.body.logout === true) {
         req.session.destroy();
         res.status(200).json("Successfully logged out");
     } else {
-        User.findOne({username: req.body.username, password: sha1(req.body.password)}, function (err, user) {
-            console.log("user check");
+        let userService = new UserService(['username', 'password']);
+        let result = userService.findOne([req.body.username, sha1(req.body.password)]);
+        result.then (function (user) {
             if (user !== null) {
-                
-                console.log("json stringfy  secret  = "+JSON.stringify(config.development.secret, null, 4));
-                //sub staat voor subject waarschijnlijk
-                var sub = {
-                    _id: user._id,
-                    name: user.name,
-                    username: user.username,
-                    role: user.role
-                };
-                var token = jwt.sign( {sub: sub}, config.development.secret, {
-                    expiresIn: 86400 // expires in 24 hours
-                });
-                // console.log("json stringfy  token  = "+JSON.stringify(token, null, 4));
-
-                var data = {
+                let authService = new AuthService(user);
+                let token = authService.signToken ( authService.getSub() );
+                let data = {
                     _id: user._id,
                     name: user.name,
                     username: user.username,
                     role: user.role,
                     token: token
                 };
-                
                 req.session.user = data;
-                // console.log("json stringfy  login user  = "+JSON.stringify(req.session.user, null, 4));
                 res.status(200).json(data);
                 return;
             } else {

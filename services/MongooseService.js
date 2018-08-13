@@ -6,12 +6,12 @@ var User = require('../models/User');
 module.exports = class MongooseService {
     /**
         @param model Mongoose model
-        @param key primary key of the model that will be used for searching, removing
+        @param keys (primary) key(s) of the model that will be used for searching, removing
         and reading
     */
-    constructor(model, key) {
+    constructor(model, keys) {
         this.model = model;
-        this.key = key;
+        this.keys = keys;
 
         if (new.target === MongooseService) {
             throw new TypeError("Cannot construct MongooseService instances directly");
@@ -24,8 +24,12 @@ module.exports = class MongooseService {
     }
 
     async findOne(id) {
-        var filter = {};
-        filter[this.key] = id;
+        let filter = {};
+        let i;
+        for (i = 0; i < this.keys.length; i += 1) {
+            filter[this.keys[i]] = id[i];
+        }
+        // filter[this.keys] = id;
         // Find one model
         return await this.model.findOne(filter).exec();
     }

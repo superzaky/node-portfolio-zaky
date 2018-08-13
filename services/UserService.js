@@ -5,8 +5,8 @@ var MongooseService = require('./MongooseService');
 'use strict';
 
 module.exports = class UserService extends MongooseService {
-    constructor(key) {
-        super(User, key);
+    constructor(keys) {
+        super(User, keys);
     }
 
     makeModel(req) {
