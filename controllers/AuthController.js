@@ -13,33 +13,21 @@ router.get('/', function (req, res) {
         res.status(404).json('Token not found');
         return;
     }
-
-    console.log("json stringfy get req.headers.authorization.split(' ')[1] = "+JSON.stringify(req.headers.authorization.split(' ')[1], null, 4));
+    // console.log("json stringfy get req.headers.authorization.split(' ')[1] = "+JSON.stringify(req.headers.authorization.split(' ')[1], null, 4));
     let token = req.headers.authorization.split(' ')[1];
-    jwt.verify(token, config.development.secret, function(err, decoded) {
-        // console.log("json stringfy token decoded = "+JSON.stringify(decoded, null, 4));
-        if (err) {
-          /*
-            err = {
-              name: 'TokenExpiredError',
-              message: 'jwt expired',
-              expiredAt: 1408621000
-            }
-          */
-          console.log("json stringfy token ERROR = "+JSON.stringify(err, null, 4));
-          res.status(400).json('Token expired');
+    let authService = new AuthService();
+    let result = authService.verify(token);
+    result.then (function (valid) {
+        console.log('valid ', valid);
+        if (valid) {
+            res.status(200).json(valid);
+            return;
+        } else {
+            //Token isn't valid
+            res.status(400).json(valid);
+            return;
         }
     });
-
-    if (!req.session.user || req.session.user === undefined) {
-        console.log("geen sessie ..");
-        
-        res.status(404).json('Session not found');
-        return;
-    }
-    
-    console.log("get session gevonden");
-    res.status(200).json(req.session.user);
 });
 
 router.post('/register', function (req, res) {            

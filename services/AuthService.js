@@ -8,13 +8,20 @@ module.exports = class AuthService {
         @param user User that needs to assigned to a token
     */
     constructor(user) {
-         // sub staat voor subject waarschijnlijk
-        this.sub = {
-            _id: user._id,
-            name: user.name,
-            username: user.username,
-            role: user.role
-        };
+        // new AuthService()
+        if (!arguments.length) {
+            
+        }
+        // new AuthService(user)
+        else {
+            // sub staat voor subject waarschijnlijk
+            this.sub = {
+                _id: user._id,
+                name: user.name,
+                username: user.username,
+                role: user.role
+            };
+        }
     }
 
     getSub() {
@@ -28,5 +35,36 @@ module.exports = class AuthService {
         });
 
         return token;
+    }
+
+    async verify(token) {
+        try {
+            var decoded = jwt.verify(token, config.development.secret);
+            // De value van de variabel decoded:
+            // verified  {
+            //     sub:
+            //     {
+            //         _id: '5a123456789',
+            //         name: 'John',
+            //         username: 'John',
+            //         role: 'guest'
+            //     },
+            //     iat: 1534367466,
+            //     exp: 1534453866
+            // }
+             
+            // console.log("json stringfy token decoded = "+JSON.stringify(decoded, null, 4));
+            return await decoded;
+          } catch(err) {
+            /*  De value van de variabel err:
+                err = {
+                name: 'TokenExpiredError',
+                message: 'jwt expired',
+                expiredAt: 1408621000
+                }
+            */
+            // console.log("json stringfy token ERROR = " + JSON.stringify(err, null, 4));
+            return await err;
+          }
     }
 }
