@@ -1,7 +1,7 @@
 // With strict mode, you can not, for example, use undeclared variables.
 'use strict';
-let jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-let config = require('../config/config');
+const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+const config = require('../config/config');
 
 module.exports = class AuthService {
     /**
@@ -9,11 +9,8 @@ module.exports = class AuthService {
     */
     constructor(user) {
         // new AuthService()
-        if (!arguments.length) {
-            
-        }
-        // new AuthService(user)
-        else {
+        if (arguments.length) {
+            // new AuthService(user)
             // sub staat voor subject waarschijnlijk
             this.sub = {
                 _id: user._id,
@@ -28,18 +25,19 @@ module.exports = class AuthService {
         return this.sub;
     }
 
-    signToken(sub) {
-        // console.log("json stringfy  secret  = "+JSON.stringify(config.development.secret, null, 4));
-        let token = jwt.sign( {sub: sub}, config.development.secret, {
+    static signToken(sub) {
+        // console.log("json stringfy  secret  = "
+        // +JSON.stringify(config.development.secret, null, 4));
+        const token = jwt.sign({sub: sub}, config.development.secret, {
             expiresIn: 86400 // expires in 24 hours
         });
 
         return token;
     }
 
-    async verify(token) {
+    static async verify(token) {
         try {
-            var decoded = jwt.verify(token, config.development.secret);
+            const decoded = jwt.verify(token, config.development.secret);
             // De value van de variabel decoded:
             // verified  {
             //     sub:
@@ -52,10 +50,10 @@ module.exports = class AuthService {
             //     iat: 1534367466,
             //     exp: 1534453866
             // }
-             
+
             // console.log("json stringfy token decoded = "+JSON.stringify(decoded, null, 4));
             return await decoded;
-          } catch(err) {
+        } catch (err) {
             /*  De value van de variabel err:
                 err = {
                 name: 'TokenExpiredError',
@@ -64,7 +62,7 @@ module.exports = class AuthService {
                 }
             */
             // console.log("json stringfy token ERROR = " + JSON.stringify(err, null, 4));
-            return await err;
-          }
+            return err;
+        }
     }
-}
+};

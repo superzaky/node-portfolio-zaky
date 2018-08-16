@@ -1,8 +1,3 @@
-// With strict mode, you can not, for example, use undeclared variables.
-var User = require('../models/User');
-
-'use strict';
-
 module.exports = class MongooseService {
     /**
         @param model Mongoose model
@@ -14,17 +9,17 @@ module.exports = class MongooseService {
         this.keys = keys;
 
         if (new.target === MongooseService) {
-            throw new TypeError("Cannot construct MongooseService instances directly");
+            throw new TypeError('Cannot construct MongooseService instances directly');
         }
 
         if (this.makeModel === undefined) {
             // or maybe test typeof this.makeModel === "function"
-            throw new TypeError("Must override makeModel method");
+            throw new TypeError('Must override makeModel method');
         }
     }
 
     async findOne(id) {
-        let filter = {};
+        const filter = {};
         let i;
         for (i = 0; i < this.keys.length; i += 1) {
             filter[this.keys[i]] = id[i];
@@ -32,6 +27,51 @@ module.exports = class MongooseService {
         // filter[this.keys] = id;
         // Find one model
         return await this.model.findOne(filter).exec();
+    }
+
+    // Company.find({ roles: { name: user.role } }, (err, currentCompanies) => {
+    //     if (currentCompanies !== null) {
+    //         if (err) res.status(400).json(err);
+
+    //         Company.count({}, (error, count) => {
+    //             if (error) res.status(400).json(error);
+    //             const obj = {
+    //                 totalItems: count,
+    //                 items: currentCompanies
+    //             };
+    //             res.status(200).json(obj);
+    //         });
+    //     } else {
+    //         console.log('geen companies gevonden');
+    //         res.status(400).json('No companies found.');
+    //     }
+    // });
+
+    async count() {
+        return await this.model.count().exec();
+    }
+
+             // Company.count({}, (error, count) => {
+                            //     if (error) {
+                            //         console.log('oho!!!');
+                            //         res.status(400).json(error);
+                            //     } else {
+                            //         const obj = {
+                            //             totalItems: count,
+                            //             items: currentCompanies
+                            //         };
+                            //         res.status(200).json(obj);
+                            //     }
+                            // });
+
+    async find(id) {
+        let filter = {};
+        let i;
+        for (i = 0; i < this.keys.length; i += 1) {
+            filter[this.keys[i]] = id[i];
+        }
+        // Find model(s)
+        return this.model.find(filter).exec();
     }
 
     validate(req) {
